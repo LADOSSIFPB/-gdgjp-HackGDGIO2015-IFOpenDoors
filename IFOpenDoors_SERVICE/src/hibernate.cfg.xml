@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="connection.url">jdbc:mysql://localhost:3306/ifopendoor</property>
+		<property name="connection.username">ifopendoor_user</property>
+		<property name="connection.password">ifpbinfo</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<property name="show_sql">true</property>
+
+		<property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+		<property name="current_session_context_class">thread</property>
+
+		<mapping class="br.edu.ifpb.ifopendoors.entity.Room" />
+		<mapping class="br.edu.ifpb.ifopendoors.entity.Person" />
+		<mapping class="br.edu.ifpb.ifopendoors.entity.Open" />
+		<mapping class="br.edu.ifpb.ifopendoors.entity.Close" />
+
+		<!-- <mapping resource="com/mkyong/user/DBUser.hbm.xml"></mapping> -->
+	</session-factory>
+</hibernate-configuration>
