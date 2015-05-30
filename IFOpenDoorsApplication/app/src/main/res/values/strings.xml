@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">CarCatalogBrowser</string>
+
+    <string-array name="informatica">
+        <item name="name">"Lab. Informática"</item>
+        <item name="name">"Laborátorio destinado aos alunos do Curso Integrado em Informática"</item>
+        <item name="background">@drawable/bg_lab_informatica</item>
+    </string-array>
+
+    <string-array name="mineracao">
+        <item name="name">"Lab. Mineraçao"</item>
+        <item name="name">"Laborátorio destinado aos alunos do Curso Integrado em Mineração"</item>
+        <item name="background">@drawable/bg_lab_mineracao</item>
+    </string-array>
+
+    <string-array name="quimica">
+        <item name="name">"Lab. Química"</item>
+        <item name="name">"Laborátorio destinado aos alunos dos Cursos Integrados em geral"</item>
+        <item name="background">@drawable/bg_lab_quimica</item>
+    </string-array>
+
+    <string-array name="matematica">
+        <item name="name">"Lab. Matemática"</item>
+        <item name="name">"Laborátorio destinado aos alunos do Curso Superior em Matemática"</item>
+        <item name="background">@drawable/bg_lab_matematica</item>
+    </string-array>
+
+    <array name="labs">
+        <item>@array/informatica</item>
+        <item>@array/mineracao</item>
+        <item>@array/quimica</item>
+        <item>@array/matematica</item>
+    </array>
+
+</resources>
