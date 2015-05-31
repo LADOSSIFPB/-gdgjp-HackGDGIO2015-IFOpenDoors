@@ -90,7 +90,7 @@ void show_services() {
 void open_door(uint8_t door_number) {
     Log.print("Presented door number: ");
     Log.println(door_number);
-    if (door_number <= 4) {
+    if (door_number >= 1 && door_number <= 4) {
         if (server->uri(F("/door/open")))
             send_to_arduino_display(door_number, OPEN);
         else
