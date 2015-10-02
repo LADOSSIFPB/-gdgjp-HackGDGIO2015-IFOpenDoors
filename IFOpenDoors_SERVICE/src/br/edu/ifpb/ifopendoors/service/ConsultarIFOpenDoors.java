@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.edu.ifpb.ifopendoors.entity.Arduino;
 import br.edu.ifpb.ifopendoors.entity.Door;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.entity.Person;
@@ -121,8 +122,6 @@ public class ConsultarIFOpenDoors {
 		}
 		
 		builder.entity(door);
-		
-		
 
 		return builder.build();
 	}
@@ -142,4 +141,13 @@ public class ConsultarIFOpenDoors {
 
 		return builder.build();
 	}
+
+	@POST
+	@Path("/arduino")
+	@Produces("application/json")
+	public void receiveArduinoInformation(Arduino arduino) {
+
+		System.out.println(arduino);
+	}
+
 }

@@ -11,7 +11,6 @@
 #include <ArduinoJson.h>
 
 byte macaddr[6] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x66};
-byte ip4addr[4] = {192, 168, 1, 50};
 
 uHTTP *server = new uHTTP(5534);
 
@@ -28,7 +27,7 @@ HardwareSerial Display = Serial1;
 void setup(){
     Log.begin(115200);
 
-    Ethernet.begin(macaddr, ip4addr);
+    Ethernet.begin(macaddr);
 
     Log.print(F("Starting uHTTP at "));
     Log.print(Ethernet.localIP());
