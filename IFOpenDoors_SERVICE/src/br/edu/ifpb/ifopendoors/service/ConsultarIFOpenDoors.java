@@ -144,6 +144,7 @@ public class ConsultarIFOpenDoors {
 
 	@POST
 	@Path("/arduino")
+	@Consumes("application/json")
 	@Produces("application/json")
 	public void receiveArduinoInformation(Arduino arduino) {
 

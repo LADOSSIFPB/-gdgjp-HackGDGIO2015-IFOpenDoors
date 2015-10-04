@@ -3,17 +3,20 @@ package br.edu.ifpb.ifopendoors.entity;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "door")
+@XmlRootElement(name = "arduino")
 public class Arduino {
+
 	
 	private String ip;
+	private int porta;
 	private int lab;
 
 	public Arduino() {
 	}
-	
-	public Arduino(String ip, int lab) {
+
+	public Arduino(String ip, int porta, int lab) {
 		this.ip = ip;
+		this.porta = porta;
 		this.lab = lab;
 	}
 

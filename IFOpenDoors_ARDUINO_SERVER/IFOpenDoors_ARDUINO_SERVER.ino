@@ -9,10 +9,12 @@
 #include <Ethernet.h>
 #include <uHTTP.h>
 #include <ArduinoJson.h>
+#include "IFOpenDoors_ARDUINO_CLIENT.h"
 
-byte macaddr[6] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x66};
+uint8_t macaddr[6] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x66};
+uint16_t port = 5534;
 
-uHTTP *server = new uHTTP(5534);
+uHTTP *server = new uHTTP(port);
 
 EthernetClient response;
 StaticJsonBuffer<200> jsonBuffer;
@@ -33,6 +35,22 @@ void setup(){
     Log.print(Ethernet.localIP());
     Log.println(":5534");
 
+    // arduino display
+    // arduino_display->begin();
+    // int idLab = arduino_display->chooseLab();
+    int idLab = 20;
+
+    // arduino cliente
+    ArduinoClient arduino_client(&Log);
+    char* ip = new char[16];
+    IPAddress ipAddrs = Ethernet.localIP();
+    sprintf(ip, "%d.%d.%d.%d", ipAddrs[0], ipAddrs[1], ipAddrs[2], ipAddrs[3]);
+    uint8_t resp = 0;
+    while (!resp) {
+        resp = arduino_client.sendInformation(ip, port, idLab);
+    }
+
+    // arduino servidor
     server->begin();
 
     Display.begin(9600);
