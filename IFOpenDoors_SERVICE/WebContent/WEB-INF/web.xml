@@ -10,6 +10,12 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+   <listener>
+	  <listener-class>
+	         br.edu.ifpb.ifopendoors.hibernate.HibernateListener
+	     </listener-class>
+	</listener>
+  
   <listener>
 	  <listener-class>
 	         org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
