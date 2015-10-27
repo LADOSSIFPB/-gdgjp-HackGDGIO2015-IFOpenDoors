@@ -7,7 +7,7 @@
 #include "IFOpenDoors_ARDUINO_CLIENT.h"
 
 ArduinoClient::ArduinoClient(HardwareSerial* serial) {
-    strcpy(webServiceAddr, "192.168.0.111");
+    strcpy(webServiceAddr, "192.168.1.100");
     strcpy(pageName, "/IFOpenDoors_SERVICE/door/arduino");
     Log = serial;
 }
