@@ -23,10 +23,16 @@ StaticJsonBuffer<200> jsonBuffer;
 HardwareSerial Log = Serial;
 HardwareSerial Display = Serial1;
 
+#define DIGITAL_PIN 22
+
 #define OPEN    1 
 #define CLOSE   0
 
 void setup(){
+    pinMode(DIGITAL_PIN, OUTPUT);
+    fecharPorta();
+    Log.println(F("Pino digital configurado com sucesso."));
+    
     Log.begin(115200);
 
     Ethernet.begin(macaddr);
@@ -54,8 +60,20 @@ void setup(){
     server->begin();
 
     Display.begin(9600);
+    Display.flush();
 
     logRoutes();
+    
+    Log.print(Ethernet.localIP());
+    
+}
+
+void fecharPorta() {
+    digitalWrite(DIGITAL_PIN, LOW);
+}
+
+void abrirPorta() {
+    digitalWrite(DIGITAL_PIN, HIGH);
 }
 
 void logRoutes(){
@@ -108,10 +126,14 @@ void open_door(uint8_t door_number) {
     Log.print("Presented door number: ");
     Log.println(door_number);
     if (door_number >= 1 && door_number <= 4) {
-        if (server->uri(F("/door/open")))
+        if (server->uri(F("/door/open"))) {
             send_to_arduino_display(door_number, OPEN);
-        else
+            abrirPorta();
+        }
+        else {
             send_to_arduino_display(door_number, CLOSE);
+            fecharPorta();
+        }
         send_headers(200);
     } else {
         send_headers(400);
