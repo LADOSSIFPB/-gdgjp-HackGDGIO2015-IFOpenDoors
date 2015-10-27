@@ -14,7 +14,6 @@ public class IFOpenDoorsApplication extends Application {
 		
 		// ADD YOUR RESTFUL RESOURCES HERE
 		this.singletons.add(new ConsultarIFOpenDoors());
-		this.singletons.add(new RestIndexIFOpenDoors());
 	}
 
 	public Set<Class<?>> getClasses() {

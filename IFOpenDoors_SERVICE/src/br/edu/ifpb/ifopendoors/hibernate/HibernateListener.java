@@ -10,6 +10,6 @@ public class HibernateListener implements ServletContextListener {
     }  
   
     public void contextDestroyed(ServletContextEvent event) {  
-    	HibernateUtil.shutdown();;
+    	HibernateUtil.shutdown();
     }  
 } 

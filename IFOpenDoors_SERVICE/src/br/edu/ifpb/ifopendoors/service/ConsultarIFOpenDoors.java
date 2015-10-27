@@ -45,7 +45,7 @@ public class ConsultarIFOpenDoors {
 	
 	private static final String URL_ARDUINO_SERVICE = "http://192.168.1.50:5534";
 	
-	private static Logger logger = LogManager.getLogger(RestIndexIFOpenDoors.class);
+	private static Logger logger = LogManager.getLogger(ConsultarIFOpenDoors.class);
 	
 	/**
 	 * Abertura da porta.
