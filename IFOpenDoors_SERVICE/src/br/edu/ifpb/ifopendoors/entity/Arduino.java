@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "arduino")
 public class Arduino {
 
-	
 	private String ip;
 	private int porta;
 	private int lab;
@@ -37,10 +36,19 @@ public class Arduino {
 	public void setLab(int lab) {
 		this.lab = lab;
 	}
-	
+
+	@XmlElement
+	public int getPorta() {
+		return porta;
+	}
+
+	public void setPorta(int porta) {
+		this.porta = porta;
+	}
+
 	@Override
 	public String toString() {
-		return "Arduino [ip=" + ip + ", lab=" + lab + "]";
+		return "Arduino [ip=" + ip + ", porta=" + porta + ", lab=" + lab + "]";
 	}
 
 }
