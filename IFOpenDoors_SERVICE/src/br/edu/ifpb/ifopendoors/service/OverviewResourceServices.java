@@ -122,11 +122,13 @@ public class OverviewResourceServices {
     @Produces(MediaType.TEXT_HTML)
     public String sayHtmlHello() {
     	
-        return "<html><title>QManager Service - Home</title>" +
-                "<body>"
-                	+ "<h1>QManager - Services </h1>"
-                	+ "Server path: " + servletContext.getContextPath()
-                + "</body></html> ";
+        return "<html>"
+        		+ " <title>IFOpenDoors Service - Home</title>" 
+        		+ " <body>"
+                	+ " <h1>IFOpenDoors - Services </h1>"
+                	+ " Server path: " + servletContext.getContextPath()
+                + " </body>"
+                + " </html> ";
     }
     
 	@GET

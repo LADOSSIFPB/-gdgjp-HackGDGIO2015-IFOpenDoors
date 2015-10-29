@@ -3,24 +3,20 @@
   <display-name>IFOpenDoors_SERVICE</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-   <listener>
+   	<listener>
 	  <listener-class>
 	         br.edu.ifpb.ifopendoors.hibernate.HibernateListener
 	     </listener-class>
 	</listener>
   
-  <listener>
+  	<listener>
 	  <listener-class>
 	         org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
 	     </listener-class>
 	</listener>
+	
 	<servlet>
 	  <servlet-name>Resteasy</servlet-name>
 	  <servlet-class>
