@@ -7,11 +7,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Arduino {
 
 	private String ip;
+	
 	private int porta;
+	
 	private int lab;
 
-	public Arduino() {
-	}
+	public Arduino() {}
 
 	public Arduino(String ip, int porta, int lab) {
 		this.ip = ip;
@@ -50,5 +51,4 @@ public class Arduino {
 	public String toString() {
 		return "Arduino [ip=" + ip + ", porta=" + porta + ", lab=" + lab + "]";
 	}
-
 }
