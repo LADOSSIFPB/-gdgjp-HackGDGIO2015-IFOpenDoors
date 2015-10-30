@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CarCatalogBrowser</string>
+    <string name="app_name">IFOpenDoors</string>
 
     <string-array name="informatica">
         <item name="name">"Lab. Informática"</item>

@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
+import ifpb.edu.br.util.Constantes;
+
 public class FragmentCloseDoor extends Fragment
         implements DelayedConfirmationView.DelayedConfirmationListener {
 
@@ -27,7 +31,9 @@ public class FragmentCloseDoor extends Fragment
 
     private DelayedConfirmationView mConfirmationView;
     private TextView mTextView;
-    private boolean mIsAnimating = false;
+
+    // Used to store result from free-form speech
+    private String mNotes;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -51,24 +57,20 @@ public class FragmentCloseDoor extends Fragment
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (getRow()) {
-                    case 0:
-                        Toast.makeText(getActivity(), "Fechando Laboratorio de Informatica",
-                                Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        Toast.makeText(getActivity(), "Fechando Laboratorio de Mineracao",
-                                Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(getActivity(), "Fechando Laboratorio de Quimica",
-                                Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        Toast.makeText(getActivity(), "Fechando Laboratorio de Matematica",
-                                Toast.LENGTH_SHORT).show();
-                        break;
+                String message = "";
+                CommunicationAsyncTask communicationAsyncTask =
+                        new CommunicationAsyncTask(getActivity(), Constantes.CLOSE_DOOR, getRow() + 1);
+                try {
+                    message = communicationAsyncTask.execute().get();
+                } catch (InterruptedException e) {
+
+                } catch (ExecutionException e) {
+
                 }
+                if (!message.equals(""))
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity(), "Comunicacao Falhou.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -77,21 +79,15 @@ public class FragmentCloseDoor extends Fragment
 
     @Override
     public void onTimerFinished(View view) {
-        mIsAnimating = false;
         final Activity activity = getActivity();
         if (activity == null) {
             // Fragment do not belong anymore to activity.
             return;
         }
 
-        // Starting the confirmation screen
-        Intent intent = new Intent(activity, ConfirmationActivity.class);
-        intent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE,
-                ConfirmationActivity.SUCCESS_ANIMATION);
-        intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Scheduled");
-        startActivity(intent);
-
         mConfirmationView.reset();
+        mConfirmationView.setImageResource(R.drawable.ic_close_door);
+        Toast.makeText(getActivity(), mNotes, Toast.LENGTH_SHORT).show();
     }
 
     @Override
