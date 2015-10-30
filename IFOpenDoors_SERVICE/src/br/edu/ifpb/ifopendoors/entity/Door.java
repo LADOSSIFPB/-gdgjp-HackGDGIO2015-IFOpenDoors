@@ -10,6 +10,8 @@ public class Door {
 	private int number;
 	
 	private String mensage;
+	
+	private Person person;
 
 	public Door() {}
 
@@ -38,5 +40,14 @@ public class Door {
 
 	public void setOpen(boolean open) {
 		this.open = open;
+	}
+	
+	@XmlElement
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 }

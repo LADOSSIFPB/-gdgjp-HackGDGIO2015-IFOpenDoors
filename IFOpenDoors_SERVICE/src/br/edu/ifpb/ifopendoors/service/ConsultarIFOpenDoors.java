@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -16,10 +18,12 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.edu.ifpb.ifopendoors.entity.Arduino;
+import br.edu.ifpb.ifopendoors.entity.Close;
 import br.edu.ifpb.ifopendoors.entity.Door;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.entity.Person;
@@ -81,10 +85,11 @@ public class ConsultarIFOpenDoors {
         
         List result = query.list();
         
-        if (!result.isEmpty()) {
+        if (result.isEmpty()) {
         	
         	// Enviar abertura pro Arduíno
     		logger.info("Comunicação com porta(arduíno): " + door.getNumber());
+    		
     		Client client = ClientBuilder.newClient();
     		Response response = client.target(URL_ARDUINO_SERVICE + APP_CONTEXT + "/open")
     				.request().post(Entity.json("{'number':" + door.getNumber() + "}"));
@@ -132,13 +137,54 @@ public class ConsultarIFOpenDoors {
 	public Response closeDoor() {
 
 		ResponseBuilder builder = Response.status(Response.Status.OK);
-		builder.expires(new Date());
-
+		builder.expires(new Date());		
+		        
 		Door door = new Door();
 		door.setOpen(false);
 		door.setMensage("Portão está sendo fechado.");
 		builder.entity(door);
+        
+		return builder.build();
+	}
+	
+	@GET
+	@Path("/close/{idOpen}")
+	@Produces("application/json")
+	public Response close(
+			@PathParam("idOpen") int idOpen) {		
+		
+		ResponseBuilder builder = Response.status(Response.Status.NOT_MODIFIED);
+		builder.expires(new Date());
 
+		try {
+			
+			// Abrindo conexão com o Banco de Dados.
+			Session session = HibernateUtil.getSessionFactory().openSession();
+	        session.beginTransaction();		
+	        
+	        // Porta aberta.
+	        Open open = new Open();
+	        open.setId(idOpen);
+	        
+	        // Fechando a porta.
+	        Close close = new Close();
+	        close.setOpen(open);
+	        
+	        // Registrando no BD.
+	        session.save(close);		
+	        session.getTransaction().commit();
+			
+	        // Porta fechada.
+			Door door = new Door();
+			door.setOpen(false);
+			door.setMensage("Portão está sendo fechado.");
+			builder.entity(door);
+
+		} catch (HibernateException e) {
+			
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR);
+		}
+		
 		return builder.build();
 	}
 
@@ -147,8 +193,28 @@ public class ConsultarIFOpenDoors {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public void receiveArduinoInformation(Arduino arduino) {
-
 		System.out.println(arduino);
 	}
+	
+	@GET
+	@Path("/entidade")
+	@Produces("application/json")
+	public Response getEntity() {
 
+		ResponseBuilder builder = Response.status(Response.Status.NOT_MODIFIED);
+		builder.expires(new Date());
+
+		Person person = new Person();
+		person.setId(1);
+
+		// Porta fechada.
+		Door door = new Door();
+		door.setNumber(1);
+		door.setOpen(true);
+		door.setPerson(person);
+
+		builder.status(Response.Status.OK).entity(door);
+
+		return builder.build();
+	}
 }
