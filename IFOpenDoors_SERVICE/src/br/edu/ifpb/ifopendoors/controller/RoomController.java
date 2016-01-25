@@ -25,7 +25,7 @@ import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
 
 /**
- * Controlador para Room.
+ * Controlador para Room. teste
  * 
  * @author Igor Barbosa
  * @author Rhavy Maia
