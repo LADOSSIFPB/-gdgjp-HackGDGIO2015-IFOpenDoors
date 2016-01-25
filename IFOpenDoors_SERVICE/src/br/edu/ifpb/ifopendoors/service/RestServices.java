@@ -23,12 +23,16 @@ import org.jboss.resteasy.core.ResourceMethodInvoker;
 import org.jboss.resteasy.core.ResourceMethodRegistry;
 
 @Path("/servicos")
-public class OverviewResourceServices {
+public class RestServices {
 	
 	private static final class MethodDescription {
+		
 		private String method;
+		
 		private String fullPath;
+		
 		private String produces;
+		
 		private String consumes;
 
 		public MethodDescription(String method, String fullPath,
@@ -47,7 +51,7 @@ public class OverviewResourceServices {
 
 		public ResourceDescription(String basePath) {
 			this.basePath = basePath;
-			this.calls = new ArrayList<OverviewResourceServices.MethodDescription>();
+			this.calls = new ArrayList<RestServices.MethodDescription>();
 		}
 
 		public void addMethod(String path, ResourceMethodInvoker method) {
@@ -71,7 +75,7 @@ public class OverviewResourceServices {
 				Set<Map.Entry<String, List<ResourceInvoker>>> bound) {
 			
 			Map<String, ResourceDescription> descriptions = 
-					new HashMap<String, OverviewResourceServices.ResourceDescription>();
+					new HashMap<String, RestServices.ResourceDescription>();
 
 			for (Map.Entry<String, List<ResourceInvoker>> entry : bound) {
 				Method aMethod = ((ResourceMethodInvoker) entry.getValue().get(

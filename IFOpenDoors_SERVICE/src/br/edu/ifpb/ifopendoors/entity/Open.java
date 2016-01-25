@@ -47,13 +47,13 @@ public class Open {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-
+	
 	public Room getRoom() {
 		return room;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoom(Room laboratory) {
+		this.room = laboratory;
 	}
 
 	public Date getTime() {
@@ -63,5 +63,4 @@ public class Open {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
 }

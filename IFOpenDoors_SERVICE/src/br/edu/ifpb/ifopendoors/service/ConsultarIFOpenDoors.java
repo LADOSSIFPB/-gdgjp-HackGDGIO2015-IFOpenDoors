@@ -107,7 +107,7 @@ public class ConsultarIFOpenDoors {
     			
     			Open open = new Open();
     			open.setPerson(person);
-    			open.setRoom(room);
+    			//open.setRoom(room);
     			open.setTime(new Date());
     			
     			session.save(open);  

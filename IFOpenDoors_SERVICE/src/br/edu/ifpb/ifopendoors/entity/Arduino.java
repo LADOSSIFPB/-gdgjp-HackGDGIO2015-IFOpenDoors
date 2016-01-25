@@ -8,17 +8,9 @@ public class Arduino {
 
 	private String ip;
 	
-	private int porta;
-	
-	private int lab;
+	private Room room;
 
 	public Arduino() {}
-
-	public Arduino(String ip, int porta, int lab) {
-		this.ip = ip;
-		this.porta = porta;
-		this.lab = lab;
-	}
 
 	@XmlElement
 	public String getIp() {
@@ -30,25 +22,18 @@ public class Arduino {
 	}
 
 	@XmlElement
-	public int getLab() {
-		return lab;
+	public Room getRoom() {
+		return room;
 	}
 
-	public void setLab(int lab) {
-		this.lab = lab;
+	public void setRoom(Room laboratory) {
+		this.room = laboratory;
 	}
-
-	@XmlElement
-	public int getPorta() {
-		return porta;
-	}
-
-	public void setPorta(int porta) {
-		this.porta = porta;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Arduino [ip=" + ip + ", porta=" + porta + ", lab=" + lab + "]";
+		return "Arduino [ip=" + ip
+				+ ", laboratorio=" + room.getNome() 
+				+ "]";
 	}
 }

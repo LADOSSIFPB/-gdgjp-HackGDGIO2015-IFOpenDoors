@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
+import br.edu.ifpb.ifopendoors.controller.RoomController;
+
 public class IFOpenDoorsApplication extends Application {
 
 	private Set<Object> singletons = new HashSet<Object>();
@@ -13,8 +15,8 @@ public class IFOpenDoorsApplication extends Application {
 	public IFOpenDoorsApplication() {
 		
 		// ADD YOUR RESTFUL RESOURCES HERE
-		this.singletons.add(new ConsultarIFOpenDoors());
-		this.singletons.add(new OverviewResourceServices());		
+		this.singletons.add(new RoomController());
+		this.singletons.add(new RestServices());		
 	}
 
 	public Set<Class<?>> getClasses() {
