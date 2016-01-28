@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
+import br.edu.ifpb.ifopendoors.controller.PersonController;
 import br.edu.ifpb.ifopendoors.controller.RoomController;
 
 public class IFOpenDoorsApplication extends Application {
@@ -16,7 +17,8 @@ public class IFOpenDoorsApplication extends Application {
 		
 		// ADD YOUR RESTFUL RESOURCES HERE
 		this.singletons.add(new RoomController());
-		this.singletons.add(new RestServices());		
+		this.singletons.add(new RestServices());
+		this.singletons.add(new PersonController());
 	}
 
 	public Set<Class<?>> getClasses() {

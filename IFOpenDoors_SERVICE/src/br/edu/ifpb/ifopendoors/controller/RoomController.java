@@ -16,23 +16,22 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import br.edu.ifpb.ifopendoors.dao.OpenDAO;
+import br.edu.ifpb.ifopendoors.dao.PersonDAO;
 import br.edu.ifpb.ifopendoors.dao.RoomDAO;
 import br.edu.ifpb.ifopendoors.entity.Close;
 import br.edu.ifpb.ifopendoors.entity.Erro;
 import br.edu.ifpb.ifopendoors.entity.Open;
+import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.entity.Room;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
+import br.edu.ifpb.ifopendoors.validatio.Validate;
 
 /**
- * Controlador para Room. teste
- * 
- * @author Igor Barbosa
+ * Controlador para Room.
+ *
  * @author Rhavy Maia
- * @author Emanuel Guimarães
- * @author Eri Jonhson
- * @author Felipe Nascimento
- * @author Ivanildo Terceiro
  * @version 1.0
  */
 @Path("room")
@@ -51,7 +50,32 @@ public class RoomController {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response open(Open open) {
-		return null;		
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+		
+		// Validação dos dados de entrada.
+		int validacao = Validate.open(open);
+		
+		if (validacao == Validate.VALIDATE_OK) {
+			
+			// Consultar Room e Person.
+			Integer idPerson = open.getPerson().getId();		
+			Person person = PersonDAO.getInstance().getById(idPerson);		
+
+			Integer idRoom = open.getPerson().getId();
+			Room room = RoomDAO.getInstance().getById(idRoom);
+			
+			Integer idOpen = OpenDAO.getInstance().insert(open);
+			
+			if (idOpen != BancoUtil.IDVAZIO) {
+
+				builder.status(Response.Status.OK);
+				builder.entity(open);
+			}
+		}		
+		
+		return builder.build();		
 	}
 	
 	/**
@@ -84,12 +108,14 @@ public class RoomController {
 	@Path("/insert")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response insert(Room room) {
+	public Response insertRoom(Room room) {
 		
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 		
 		try {
+		
+			
 			
 			Integer idRoom = RoomDAO.getInstance().insert(room);
 			
@@ -138,5 +164,29 @@ public class RoomController {
 		}
 
 		return builder.build();
+	}
+	
+	
+	
+	@GET
+	@Path("/entity")
+	@Produces("application/json")
+	public Response getEntity() {
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+		
+		Open open = new Open();
+		
+		Room room = RoomDAO.getInstance().getById(1); 
+		
+		Person person = PersonDAO.getInstance().getById(1);
+		
+		open.setRoom(room);
+		open.setPerson(person);
+		
+		builder.status(Response.Status.OK).entity(open); 
+		
+		return builder.build();		
 	}
 }

@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 @Entity 
 @Table(name="tb_alocacao")
 public class Open {
@@ -28,8 +31,9 @@ public class Open {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Room room;
 	
+	@Generated(GenerationTime.INSERT)
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_abertura")
+	@Column(name="dt_abertura", insertable=true, nullable = false)
 	private Date time;
 
 	public int getId() {
@@ -52,8 +56,8 @@ public class Open {
 		return room;
 	}
 
-	public void setRoom(Room laboratory) {
-		this.room = laboratory;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 	public Date getTime() {

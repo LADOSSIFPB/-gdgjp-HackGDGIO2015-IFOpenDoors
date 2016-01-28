@@ -11,8 +11,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 @Entity
 @Table(name="tb_sala")
 @XmlRootElement(name = "sala")

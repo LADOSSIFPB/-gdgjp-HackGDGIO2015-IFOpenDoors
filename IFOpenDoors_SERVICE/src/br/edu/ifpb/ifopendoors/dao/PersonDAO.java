@@ -8,32 +8,32 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import br.edu.ifpb.ifopendoors.entity.Room;
+import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.hibernate.HibernateUtil;
 
-public class RoomDAO extends AbstractDAO<Integer, Room>{
+public class PersonDAO extends AbstractDAO<Integer, Person>{
 
-	private static Logger logger = LogManager.getLogger(RoomDAO.class);
+	private static Logger logger = LogManager.getLogger(PersonDAO.class);
 
-	private static RoomDAO instance;
+	private static PersonDAO instance;
 	
-	public static RoomDAO getInstance() {
-		instance = new RoomDAO();
+	public static PersonDAO getInstance() {
+		instance = new PersonDAO();
 		return instance;
 	}
 
 	@Override
-	public Room getById(Integer idRoom) throws SQLExceptionIFOpenDoors {
+	public Person getById(Integer idPerson) throws SQLExceptionIFOpenDoors {
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Room room = null;
+		Person person = null;
 		
 		try {
 		
 			session.beginTransaction();
-			room = (Room) session.get(Room.class, idRoom);
-	        Hibernate.initialize(room);
+			person = (Person) session.get(Person.class, idPerson);
+	        Hibernate.initialize(person);
 	        session.getTransaction().commit();
 	        
 		} catch (HibernateException e) {
@@ -46,12 +46,12 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 			session.close();
 		}
 		
-		return room;
+		return person;
 	}
 
 	@Override
-	public List<Room> getAll() throws SQLExceptionIFOpenDoors {
-		return super.getAll("Room.getAll");
+	public List<Person> getAll() throws SQLExceptionIFOpenDoors {
+		return super.getAll("Person.getAll");
 	}
 	
 	@Override

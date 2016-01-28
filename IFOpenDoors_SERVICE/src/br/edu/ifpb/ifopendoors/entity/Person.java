@@ -4,10 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity 
 @Table(name="tb_pessoa")
+@NamedQuery(name = "Person.getAll", query = "from Person")
 public class Person {
 
 	@Id
