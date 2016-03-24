@@ -75,7 +75,7 @@ public class HttpService {
 	}
 
 	/**
-	 * Enviar requisic„o via HTTP GET com valor de path.
+	 * Enviar requisi√ß√£o via HTTP GET com valor de path.
 	 * 
 	 * @param service
 	 * @param pathValue
@@ -86,7 +86,7 @@ public class HttpService {
 	}
 
 	/**
-	 * Enviar requisicao via HTTP GET com par‚metros.
+	 * Enviar requisicao via HTTP GET com par√¢metros.
 	 * 
 	 * @param service
 	 * @param parametros

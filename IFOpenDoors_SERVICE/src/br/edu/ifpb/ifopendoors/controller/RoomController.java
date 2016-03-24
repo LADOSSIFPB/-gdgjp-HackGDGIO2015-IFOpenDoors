@@ -66,12 +66,21 @@ public class RoomController {
 			Integer idRoom = open.getPerson().getId();
 			Room room = RoomDAO.getInstance().getById(idRoom);
 			
-			Integer idOpen = OpenDAO.getInstance().insert(open);
+			// Verificar disponibilidade de sala.
+			OpenDAO.getInstance().isOpenRoom(idRoom);
 			
-			if (idOpen != BancoUtil.IDVAZIO) {
-
-				builder.status(Response.Status.OK);
-				builder.entity(open);
+			if (person != null && room != null) {				
+				
+				open.setPerson(person);
+				open.setRoom(room);
+				
+				Integer idOpen = OpenDAO.getInstance().insert(open);
+				
+				if (idOpen != BancoUtil.IDVAZIO) {
+	
+					builder.status(Response.Status.OK);
+					builder.entity(open);
+				}
 			}
 		}		
 		

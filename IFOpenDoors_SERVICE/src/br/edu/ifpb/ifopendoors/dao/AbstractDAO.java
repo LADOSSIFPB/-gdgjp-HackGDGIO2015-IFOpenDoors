@@ -74,13 +74,13 @@ public abstract class AbstractDAO<PK, T> implements GenericDAO<PK, T> {
 		logger.info("Init abstract GetAll to: " + namedQuery);
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<T> roons = null;
+		List<T> list = null;
 
 		try {
 			
 			session.beginTransaction();
 			Query query = session.getNamedQuery(namedQuery);
-			roons = query.list();
+			list = query.list();
 			session.getTransaction().commit();
 			
 		} catch (HibernateException e) {
@@ -93,7 +93,7 @@ public abstract class AbstractDAO<PK, T> implements GenericDAO<PK, T> {
 			session.close();
 		}
 
-		return roons;
+		return list;
 	}
 
 	@Override
