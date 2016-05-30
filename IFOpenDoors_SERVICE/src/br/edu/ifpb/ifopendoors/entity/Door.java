@@ -1,53 +1,58 @@
 package br.edu.ifpb.ifopendoors.entity;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "door")
-public class Door {
+@Entity
+@Table(name="tb_porta")
+@NamedQuery(name = "Door.getAll", query = "from Door")
+public class Door implements Serializable {
 
-	private boolean open;
+	private static final long serialVersionUID = 3625461101278344561L;
+
+	@Id
+    @GeneratedValue
+    @Column(name="id_porta")
+	private int id;
 	
-	private int number;
+	@Column(name="nm_chave")
+	private String key;
 	
-	private String mensage;
-	
-	private Person person;
+	@Column(name="nm_ip")
+	private String ip;
 
 	public Door() {}
 
 	@XmlElement
-	public String getMensage() {
-		return mensage;
+	public int getId() {
+		return id;
 	}
 
-	public void setMensage(String mensage) {
-		this.mensage = mensage;
-	}
-
-	@XmlElement
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@XmlElement
-	public boolean getOpen() {
-		return open;
+	public String getIp() {
+		return ip;
 	}
 
-	public void setOpen(boolean open) {
-		this.open = open;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
-	
+
 	@XmlElement
-	public Person getPerson() {
-		return person;
+	public String getKey() {
+		return key;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setKey(String key) {
+		this.key = key;
 	}
 }

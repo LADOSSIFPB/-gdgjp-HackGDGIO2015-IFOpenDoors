@@ -2,18 +2,20 @@ package br.edu.ifpb.ifopendoors.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="tb_sala")
-@XmlRootElement(name = "sala")
 @NamedQuery(name = "Room.getAll", query = "from Room")
 public class Room implements Serializable {
 
@@ -27,8 +29,13 @@ public class Room implements Serializable {
 	@Column(name="nm_sala")
 	private String nome;
 	
-	@Column(name="tp_sala")
-	private String tipo;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_id_tipo_sala", referencedColumnName="id_tipo_sala")
+	private TypeRoom tipoSala;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_id_porta", referencedColumnName="id_porta")
+	private Door door;
 	
 	@Column(name="nm_descricao")
 	private String descricao;
@@ -52,20 +59,29 @@ public class Room implements Serializable {
 	}
 
 	@XmlElement
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	@XmlElement
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	@XmlElement
+	public Door getDoor() {
+		return door;
+	}
+
+	public void setDoor(Door door) {
+		this.door = door;
+	}
+
+	@XmlElement
+	public TypeRoom getTipoSala() {
+		return tipoSala;
+	}
+
+	public void setTipoSala(TypeRoom tipoSala) {
+		this.tipoSala = tipoSala;
 	}
 }
