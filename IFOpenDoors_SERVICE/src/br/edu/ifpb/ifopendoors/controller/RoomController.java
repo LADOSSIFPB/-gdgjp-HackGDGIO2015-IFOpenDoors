@@ -10,20 +10,27 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import br.edu.ifpb.ifopendoors.dao.DoorDAO;
 import br.edu.ifpb.ifopendoors.dao.OpenDAO;
 import br.edu.ifpb.ifopendoors.dao.PersonDAO;
 import br.edu.ifpb.ifopendoors.dao.RoomDAO;
+import br.edu.ifpb.ifopendoors.dao.TypeRoomDAO;
 import br.edu.ifpb.ifopendoors.entity.Close;
+import br.edu.ifpb.ifopendoors.entity.Door;
 import br.edu.ifpb.ifopendoors.entity.Erro;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.entity.Room;
+import br.edu.ifpb.ifopendoors.entity.TypeRoom;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
 import br.edu.ifpb.ifopendoors.validatio.Validate;
@@ -57,26 +64,36 @@ public class RoomController {
 		// Validação dos dados de entrada.
 		int validacao = Validate.open(open);
 		
+		
 		if (validacao == Validate.VALIDATE_OK) {
 			
 			// Consultar Room e Person.
-			Integer idPerson = open.getPerson().getId();		
-			Person person = PersonDAO.getInstance().getById(idPerson);		
+			Integer idPerson = open.getPerson().getId();
+			Person person = PersonDAO.getInstance().getById(idPerson);	
 
-			Integer idRoom = open.getPerson().getId();
+			Integer idRoom = open.getRoom().getId();
 			Room room = RoomDAO.getInstance().getById(idRoom);
 			
-			// Verificar disponibilidade de sala.
-			OpenDAO.getInstance().isOpenRoom(idRoom);
+			Integer idDoor = room.getDoor().getId();
+			Door door = DoorDAO.getInstance().getById(idDoor);
 			
-			if (person != null && room != null) {				
+			// Verificar disponibilidade de sala.
+			//OpenDAO.getInstance().isOpenRoom(idRoom);
+			
+			if (person != null && room != null && door.getIp() != null) {
 				
 				open.setPerson(person);
+				room.setDoor(door);
 				open.setRoom(room);
+				open.setTime("12/03");
 				
 				Integer idOpen = OpenDAO.getInstance().insert(open);
 				
 				if (idOpen != BancoUtil.IDVAZIO) {
+					
+					Client client = ClientBuilder.newClient();
+		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")
+		    				.request().get();		    		
 	
 					builder.status(Response.Status.OK);
 					builder.entity(open);
@@ -123,8 +140,12 @@ public class RoomController {
 		builder.expires(new Date());
 		
 		try {
-		
 			
+			Door door = DoorDAO.getInstance().getById(room.getDoor().getId());
+			TypeRoom typeRoom = TypeRoomDAO.getInstance().getById(room.getDoor().getId());
+			
+			room.setDoor(door);
+			room.setTipoSala(typeRoom);
 			
 			Integer idRoom = RoomDAO.getInstance().insert(room);
 			

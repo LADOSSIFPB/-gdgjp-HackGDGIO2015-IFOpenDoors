@@ -5,8 +5,10 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
+import br.edu.ifpb.ifopendoors.controller.DoorController;
 import br.edu.ifpb.ifopendoors.controller.PersonController;
 import br.edu.ifpb.ifopendoors.controller.RoomController;
+import br.edu.ifpb.ifopendoors.controller.TypeRoomController;
 
 public class IFOpenDoorsApplication extends Application {
 
@@ -19,6 +21,8 @@ public class IFOpenDoorsApplication extends Application {
 		this.singletons.add(new RoomController());
 		this.singletons.add(new RestServices());
 		this.singletons.add(new PersonController());
+		this.singletons.add(new DoorController());
+		this.singletons.add(new TypeRoomController());
 	}
 
 	public Set<Class<?>> getClasses() {

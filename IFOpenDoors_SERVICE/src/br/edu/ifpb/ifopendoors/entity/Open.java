@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ import org.hibernate.annotations.GenerationTime;
 public class Open {
 	
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_alocacao")
 	private int id;
 	
@@ -31,10 +32,9 @@ public class Open {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Room room;
 	
-	@Generated(GenerationTime.INSERT)
-	@Temporal(TemporalType.TIMESTAMP)
+
 	@Column(name="dt_abertura", insertable=true, nullable = false)
-	private Date time;
+	private String time;
 
 	public int getId() {
 		return id;
@@ -60,11 +60,11 @@ public class Open {
 		this.room = room;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setTime(String i) {
+		this.time = i;
 	}
 }

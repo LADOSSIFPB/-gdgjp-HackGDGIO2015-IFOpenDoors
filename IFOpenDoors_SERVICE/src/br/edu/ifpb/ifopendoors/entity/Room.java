@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
@@ -22,7 +23,7 @@ public class Room implements Serializable {
 	private static final long serialVersionUID = 2556998583222059337L;
 
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_sala")
 	private int id;
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ public class Door implements Serializable {
 	private static final long serialVersionUID = 3625461101278344561L;
 
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_porta")
 	private int id;
 	
@@ -26,8 +27,6 @@ public class Door implements Serializable {
 	
 	@Column(name="nm_ip")
 	private String ip;
-
-	public Door() {}
 
 	@XmlElement
 	public int getId() {

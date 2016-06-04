@@ -23,13 +23,12 @@ public class TypeRoomController {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response insertRoom(TypeRoom typeRoom) {
+		System.out.println("ok");
 		
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 		
-		try {
-		
-			
+		try {			
 			
 			Integer idTypeRoom = TypeRoomDAO.getInstance().insert(typeRoom);
 			
