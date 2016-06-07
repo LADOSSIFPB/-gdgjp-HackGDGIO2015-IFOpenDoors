@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import br.edu.ifpb.ifopendoors.dao.CloseDAO;
 import br.edu.ifpb.ifopendoors.dao.DoorDAO;
 import br.edu.ifpb.ifopendoors.dao.OpenDAO;
 import br.edu.ifpb.ifopendoors.dao.PersonDAO;
@@ -114,8 +115,55 @@ public class RoomController {
 	@Path("/close")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response close(Close open) {
-		return null;		
+	public Response close(Close close) {
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+		
+		// Validação dos dados de entrada.
+		int validacao = Validate.VALIDATE_OK;
+		
+		if (validacao == Validate.VALIDATE_OK) {
+			
+			// Consultar Room e Person.
+			Integer idOpen = close.getOpen().getId();
+			Open open = OpenDAO.getInstance().getById(idOpen);
+			
+			Integer idPerson = open.getPerson().getId();	
+			Person person = PersonDAO.getInstance().getById(idPerson);
+
+			Integer idRoom = open.getRoom().getId();
+			Room room = RoomDAO.getInstance().getById(idRoom);
+
+			Integer idDoor = room.getDoor().getId();
+			Door door = DoorDAO.getInstance().getById(idDoor);
+			
+			// Verificar disponibilidade de sala.
+			//OpenDAO.getInstance().isOpenRoom(idRoom);
+			
+			if (person != null && room != null && door.getIp() != null) {
+				
+				open.setPerson(person);
+				room.setDoor(door);
+				open.setRoom(room);
+				open.setTime("12/03");
+				
+				close.setOpen(open);
+				
+				Integer idClose = CloseDAO.getInstance().insert(close);
+				
+				if (idClose != BancoUtil.IDVAZIO) {
+					
+					Client client = ClientBuilder.newClient();
+		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
+		    				.request().get();		    		
+	
+					builder.status(Response.Status.OK);
+					builder.entity(open);
+				}
+			}
+		}		
+		
+		return builder.build();	
 	}
 	
 	@GET

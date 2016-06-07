@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.edu.ifpb.ifopendoors.entity.Close;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.hibernate.HibernateUtil;
@@ -72,8 +74,28 @@ public class OpenDAO extends AbstractDAO<Integer, Open> {
 	}
 
 	@Override
-	public Open getById(Integer id) throws SQLExceptionIFOpenDoors {
-		// TODO Auto-generated method stub
-		return null;
+	public Open getById(Integer idOpen) throws SQLExceptionIFOpenDoors {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Open open = null;
+		
+		try {
+		
+			session.beginTransaction();
+			open = (Open) session.get(Open.class, idOpen);
+	        Hibernate.initialize(open);
+	        session.getTransaction().commit();
+	        
+		} catch (HibernateException e) {
+			
+			logger.error(e.getMessage());
+			session.getTransaction().rollback();
+			
+		} finally {
+			
+			session.close();
+		}
+		
+		return open;
 	}
 }

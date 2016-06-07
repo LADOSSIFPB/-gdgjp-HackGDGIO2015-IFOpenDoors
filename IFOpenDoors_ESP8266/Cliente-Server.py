@@ -2,9 +2,11 @@ import RestServer
 import network
 from machine import Pin
 import ujson
+import lwip
 
-p = Pin(0, Pin.OUT)
-ip = "192.168.0.1"
+p = Pin(5, Pin.OUT)
+ip = "192.168.0.5"
+portaServidorESP = 8080
 
 def open():
 	p.high()
@@ -31,16 +33,9 @@ wlan.connect('Vilar', 'defarias')
 while not wlan.isconnected():
 	pass
 
-data = ujson.dumps({'ip':wlan.ifconfig()[0]})
+data = ujson.dumps({'ip':wlan.ifconfig()[0] + ":" + str(portaServidorESP)})
 
-requisicao = "POST /IFOpenDoors_SERVICE/door/insert HTTP/1.0" + "\r\n" +
-			 "Host: " + ip + "\r\n" +
-			 "User-Agent: ESP" + "\r\n" +
-			 "Accept: application/json" + "\r\n" +
-			 "If-modified-since: Sat, 29 Oct 1999 19:43:31 GMT" + "\r\n" +
-			 "Content-Type: application/json" + "\r\n" +
-			 "Content-Length: " + len(data) + "\r\n" +
-		 	 "Connection: keep-alive" + "\r\n" + "\r\n" + data
+requisicao = "POST /IFOpenDoors_SERVICE/door/insert HTTP/1.0" + "\r\n" + "Host: " + ip + "\r\n" + "User-Agent: ESP" + "\r\n" + "Accept: application/json" + "\r\n" + "If-modified-since: Sat, 29 Oct 1999 19:43:31 GMT" + "\r\n" + "Content-Type: application/json" + "\r\n" + "Content-Length: " + str(len(data)) + "\r\n" + "Connection: keep-alive" + "\r\n" + "\r\n" + data
 
 addr = lwip.getaddrinfo(ip, 8080)
 s = lwip.socket()
@@ -49,5 +44,5 @@ s.send(requisicao.encode())
 data = s.recv(1000)
 s.close()
 
-server = Server(8080)
+server = RestServer.Server(portaServidorESP)
 server.start(paths)
