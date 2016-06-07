@@ -1,6 +1,8 @@
 package br.edu.ifpb.ifopendoors.entity;
 
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +24,11 @@ public class Close {
     @Column(name="id_desalocacao")
 	private int id;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Open open;
 	
 	@Column(name="dt_fechamento", insertable=true, nullable = false)
-	private String time;
+	private Date time;
 
 	public int getId() {
 		return id;
@@ -44,11 +46,11 @@ public class Close {
 		this.open = open;
 	}
 
-	public String getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 }

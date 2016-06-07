@@ -86,7 +86,9 @@ public class RoomController {
 				open.setPerson(person);
 				room.setDoor(door);
 				open.setRoom(room);
-				open.setTime("12/03");
+				
+				Date now = new Date();
+				open.setTime(now);
 				
 				Integer idOpen = OpenDAO.getInstance().insert(open);
 				
@@ -145,7 +147,9 @@ public class RoomController {
 				open.setPerson(person);
 				room.setDoor(door);
 				open.setRoom(room);
-				open.setTime("12/03");
+				
+				Date now = new Date();
+				close.setTime(now);
 				
 				close.setOpen(open);
 				

@@ -5,7 +5,7 @@ import ujson
 import lwip
 
 p = Pin(5, Pin.OUT)
-ip = "192.168.0.5"
+ip = "192.168.1.76"
 portaServidorESP = 8080
 
 def open():
@@ -28,7 +28,7 @@ paths = {"/open":open,
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect('Vilar', 'defarias')
+wlan.connect('arduino', 'arduino%')
 
 while not wlan.isconnected():
 	pass
