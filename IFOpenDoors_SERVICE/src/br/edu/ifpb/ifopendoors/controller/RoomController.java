@@ -162,7 +162,7 @@ public class RoomController {
 		    				.request().get();		    		
 	
 					builder.status(Response.Status.OK);
-					builder.entity(open);
+					builder.entity(close);
 				}
 			}
 		}		
