@@ -83,8 +83,7 @@
 
 .primeiro{
   position: relative;
-  margin-top: 100px;
-  margin-bottom: 90px;
+  top: 30%;
 }
 
 .nav-pills>li>a:hover,
