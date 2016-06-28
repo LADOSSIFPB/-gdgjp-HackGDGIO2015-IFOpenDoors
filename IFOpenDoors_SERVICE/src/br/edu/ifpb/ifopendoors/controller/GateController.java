@@ -117,12 +117,6 @@ public class GateController {
 			}
 		}
 		
-		try {
-			Thread.sleep(20000);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		Close close = new Close();
 		close.setOpen(open);
 		
@@ -133,14 +127,35 @@ public class GateController {
 		
 		if (idClose != BancoUtil.IDVAZIO) {
 			
-			Client client = ClientBuilder.newClient();
-			Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
-    				.request().get();
+			autoDesableGate(open.getRoom().getDoor().getIp());
 			
 			builder.status(Response.Status.OK);
 			builder.entity(close);
 		}
 		
 		return builder.build();		
+	}
+	
+	public void autoDesableGate(String ip) {
+		
+		new Thread() {
+
+			@Override
+			public void run() {
+				
+				try {
+					
+					Thread.sleep(5000);
+
+					Client client = ClientBuilder.newClient();
+					Response response = client.target("http://" + ip + "/close").request()
+							.get();
+				
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+			}
+		}.start();
 	}
 }

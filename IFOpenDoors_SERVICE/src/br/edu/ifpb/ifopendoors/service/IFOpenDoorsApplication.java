@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import br.edu.ifpb.ifopendoors.controller.DoorController;
+import br.edu.ifpb.ifopendoors.controller.GateController;
 import br.edu.ifpb.ifopendoors.controller.PersonController;
 import br.edu.ifpb.ifopendoors.controller.RoomController;
 import br.edu.ifpb.ifopendoors.controller.TypeRoomController;
@@ -23,6 +24,7 @@ public class IFOpenDoorsApplication extends Application {
 		this.singletons.add(new PersonController());
 		this.singletons.add(new DoorController());
 		this.singletons.add(new TypeRoomController());
+		this.singletons.add(new GateController());
 	}
 
 	public Set<Class<?>> getClasses() {

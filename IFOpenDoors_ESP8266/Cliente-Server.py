@@ -4,19 +4,21 @@ from machine import Pin
 import ujson
 import lwip
 
-p = Pin(5, Pin.OUT)
-ip = "192.168.1.76"
+p = Pin(4, Pin.OUT)
+ip = "192.168.2.110"
 portaServidorESP = 8080
 
 def open():
-	p.high()
+	print('Abrindo')
+	p.low()
 	response = Response()
 	response.code(200)
 	response.contentType("text/plain")
 	response.data("Aberto")
 	return response.build()
 def close():
-	p.low()
+	print('Fechando')
+	p.high()
 	response = Response()
 	response.code(200)
 	response.contentType("text/plain")
