@@ -1,0 +1,45 @@
+<html lang="pt" ng-app="ifopendoors">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/my/index.js"></script>
+    <link href="css/my/index.css" rel="stylesheet">
+    
+  </head>
+  <body ng-controller="ifopendoorsCtrl">
+    <center><h4 class="barraCima"><b>IfOpenDoors</b></h4></center>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-sm-2 col-xs-1"></div>
+        <div class="col-md-4 jumbotron col-sm-8 col-xs-10">
+
+          <center><img class="img" src="img/logoP.png" width="150px" height= "150px"/></center>
+
+          <div class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-envelope"></span> 
+            <input type="email" ng-model="login.email" class="form-control" placeholder="Email">
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-lock"></span>          
+            <input type="password" ng-model="login.senha" class="form-control" placeholder="Senha">
+          </div>
+
+          <button type="submit" class="btn btn-success btn-block" ng-click="loginValidation(login)" ng-disabled="!login.email || !login.senha">Login</button>
+        </div>
+        <div class="col-md-4 col-sm-2 col-xs-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 rodape">
+          <img class="img" src="img/ifpb-branco.png" width="150px" height="50px" align="left"/>
+          <img class="img" src="img/ladoss-branco.png" width="200px" height="40px" align="right"/>       
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
