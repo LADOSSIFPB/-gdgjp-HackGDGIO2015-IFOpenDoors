@@ -54,32 +54,27 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 	}
 	
 	public boolean isOpen(Room room){
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		boolean isOpen = false;
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();		
 		
 		String hql = "from Open as o"
-				+ " where o.room = :room"
-				+ " order by o.time desc";
+				+ " where o.id not in ("
+				+ " 	select c.open.id"
+				+ "		from Close as c"
+				+ "		where c.open.room.id = :idSala"
+				+ ")";
 		
 		Query query = session.createQuery(hql);
-		query.setParameter("room", room);
-		
-		List opens = query.list();
-		Open open = (Open) opens.get(0);
-		
-		hql = "from Close as c"
-				+ " where c.open = :open"
-				+ " and c.time > :openTime";
-		
-		Query query2 = session.createQuery(hql);
-		query2.setParameter("open", open);
-		query2.setParameter("openTime", open.getTime());
+		query.setParameter("idSala", room.getId());
 	
-		Close close = (Close) query2.uniqueResult();
+		Open open = (Open) query.uniqueResult();
 		
-		if(close!=null)
-			return false;		
+		if(open != null)
+			isOpen = true;		
 		
-		return true;
+		return isOpen;
 		
 	}
 

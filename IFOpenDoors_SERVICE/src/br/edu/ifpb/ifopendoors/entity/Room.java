@@ -31,11 +31,11 @@ public class Room implements Serializable {
 	private String nome;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_id_tipo_sala", referencedColumnName="id_tipo_sala")
+	@JoinColumn(name = "fk_id_tipo_sala", referencedColumnName="id_tipo_sala", nullable=false)
 	private TypeRoom tipoSala;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_id_porta", referencedColumnName="id_porta")
+	@JoinColumn(name = "fk_id_porta", referencedColumnName="id_porta", nullable=false, unique=true)
 	private Door door;
 	
 	@Column(name="nm_descricao")

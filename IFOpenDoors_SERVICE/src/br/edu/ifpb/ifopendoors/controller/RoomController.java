@@ -10,14 +10,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.edu.ifpb.ifopendoors.dao.CloseDAO;
 import br.edu.ifpb.ifopendoors.dao.DoorDAO;
@@ -77,12 +75,12 @@ public class RoomController {
 			Integer idDoor = room.getDoor().getId();
 			Door door = DoorDAO.getInstance().getById(idDoor);
 			
-			boolean result = RoomDAO.getInstance().isOpen(room);
+			boolean isOpen = RoomDAO.getInstance().isOpen(room);
 			
 			// Verificar disponibilidade de sala.
 			//OpenDAO.getInstance().isOpenRoom(idRoom);
 			
-			if (person != null && room != null && door.getIp() != null && !result) {
+			if (person != null && room != null && door.getIp() != null && !isOpen) {
 				
 				open.setPerson(person);
 				room.setDoor(door);
@@ -197,19 +195,34 @@ public class RoomController {
 		try {
 			
 			Door door = DoorDAO.getInstance().getById(room.getDoor().getId());
-			TypeRoom typeRoom = TypeRoomDAO.getInstance().getById(room.getDoor().getId());
+			TypeRoom typeRoom = TypeRoomDAO.getInstance().getById(room.getTipoSala().getId());
 			
-			room.setDoor(door);
-			room.setTipoSala(typeRoom);
-			
-			Integer idRoom = RoomDAO.getInstance().insert(room);
-			
-			if (idRoom != BancoUtil.IDVAZIO) {
+			if (door != null && typeRoom != null) {
+				
+				room.setDoor(door);
+				room.setTipoSala(typeRoom);
+				
+				Integer idRoom = RoomDAO.getInstance().insert(room);
+				
+				if (idRoom != BancoUtil.IDVAZIO) {
 
-				builder.status(Response.Status.OK);
-				builder.entity(room);
-			}
+					builder.status(Response.Status.OK);
+					builder.entity(room);
+				}
+			
+			} else {
+				
+				//TODO: Tratar mensagem de retorno com BAD_REQUEST.
+			}			
 		
+		} catch (ConstraintViolationException msqle) {
+			
+			Erro erro = new Erro();
+			erro.setCodigo(2);
+			erro.setMensagem("");
+			
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro);
+			
 		} catch (SQLExceptionIFOpenDoors qme) {
 			
 			Erro erro = new Erro();
