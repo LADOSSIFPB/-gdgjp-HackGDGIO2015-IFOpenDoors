@@ -25,8 +25,7 @@ public class Open {
 	private Person person;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Room room;
-	
+	private Room room;	
 
 	@Column(name="dt_abertura", insertable=true, nullable = false)
 	private Date time;

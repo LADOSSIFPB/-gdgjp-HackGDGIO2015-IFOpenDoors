@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import br.edu.ifpb.ifopendoors.entity.Open;
+import br.edu.ifpb.ifopendoors.entity.Person;
 
 public class Validate {
 
@@ -20,6 +21,11 @@ public class Validate {
 		
 		logger.info("Validação para abertura de sala.");
 		//TODO: implementar a validação para abertura de sala.
+		return VALIDATE_OK;
+	}
+	
+	public static int acessoPessoa(Person pessoaAcesso) {
+		
 		return VALIDATE_OK;
 	}
 }

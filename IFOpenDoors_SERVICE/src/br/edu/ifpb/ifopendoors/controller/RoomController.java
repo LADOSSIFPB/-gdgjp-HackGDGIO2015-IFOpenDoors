@@ -63,8 +63,7 @@ public class RoomController {
 		builder.expires(new Date());
 		
 		// Validação dos dados de entrada.
-		int validacao = Validate.open(open);
-		
+		int validacao = Validate.open(open);		
 		
 		if (validacao == Validate.VALIDATE_OK) {
 			
@@ -78,10 +77,12 @@ public class RoomController {
 			Integer idDoor = room.getDoor().getId();
 			Door door = DoorDAO.getInstance().getById(idDoor);
 			
+			boolean result = RoomDAO.getInstance().isOpen(room);
+			
 			// Verificar disponibilidade de sala.
 			//OpenDAO.getInstance().isOpenRoom(idRoom);
 			
-			if (person != null && room != null && door.getIp() != null) {
+			if (person != null && room != null && door.getIp() != null && !result) {
 				
 				open.setPerson(person);
 				room.setDoor(door);
@@ -94,9 +95,9 @@ public class RoomController {
 				
 				if (idOpen != BancoUtil.IDVAZIO) {
 					
-					Client client = ClientBuilder.newClient();
-		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")
-		    				.request().get();		    		
+					//Client client = ClientBuilder.newClient();
+		    		//Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")
+		    		//		.request().get();		    		
 	
 					builder.status(Response.Status.OK);
 					builder.entity(open);
@@ -139,10 +140,12 @@ public class RoomController {
 			Integer idDoor = room.getDoor().getId();
 			Door door = DoorDAO.getInstance().getById(idDoor);
 			
+			boolean result = RoomDAO.getInstance().isOpen(room);
+			
 			// Verificar disponibilidade de sala.
 			//OpenDAO.getInstance().isOpenRoom(idRoom);
 			
-			if (person != null && room != null && door.getIp() != null) {
+			if (person != null && room != null && door.getIp() != null && result) {
 				
 				open.setPerson(person);
 				room.setDoor(door);
@@ -157,9 +160,9 @@ public class RoomController {
 				
 				if (idClose != BancoUtil.IDVAZIO) {
 					
-					Client client = ClientBuilder.newClient();
-		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
-		    				.request().get();		    		
+					//Client client = ClientBuilder.newClient();
+		    		//Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
+		    		//		.request().get();		    		
 	
 					builder.status(Response.Status.OK);
 					builder.entity(close);
@@ -248,7 +251,34 @@ public class RoomController {
 		return builder.build();
 	}
 	
-	
+	@GET
+	@Path("/isOpen/{id}")
+	@Produces("application/json")
+	public Response isOpen(@PathParam("id") int idRoom) {
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+
+		try {
+
+			Room room = RoomDAO.getInstance().getById(idRoom);
+			
+			boolean result = RoomDAO.getInstance().isOpen(room);			
+			
+			builder.status(Response.Status.OK);
+			builder.entity(result);
+
+		} catch (SQLExceptionIFOpenDoors qme) {
+
+			Erro erro = new Erro();
+			erro.setCodigo(qme.getErrorCode());
+			erro.setMensagem(qme.getMessage());
+
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro);
+		}
+
+		return builder.build();
+	}
 	
 	@GET
 	@Path("/entity")

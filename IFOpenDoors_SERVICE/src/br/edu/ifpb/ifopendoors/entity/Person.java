@@ -24,6 +24,9 @@ public class Person {
 	@Column(name="nr_cpf")
 	private String cpf;
 	
+	@Column(name="nr_email")
+	private String email;
+	
 	@Column(name="nr_senha")
 	private String password;
 	
@@ -68,5 +71,13 @@ public class Person {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

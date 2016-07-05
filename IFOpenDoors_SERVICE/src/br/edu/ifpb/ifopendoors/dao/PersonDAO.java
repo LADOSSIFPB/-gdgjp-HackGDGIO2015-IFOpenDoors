@@ -1,11 +1,13 @@
 package br.edu.ifpb.ifopendoors.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.edu.ifpb.ifopendoors.entity.Person;
@@ -49,6 +51,33 @@ public class PersonDAO extends AbstractDAO<Integer, Person>{
 		return person;
 	}
 
+	public Person login(String email, String password){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		Person pessoa = null;
+		
+		try {			
+			logger.info("Verificando o login: " + email);
+			
+			String hql = "from Person as p"
+					+ " where p.email = :email"
+					+ " and p.password = :password";
+			
+			Query query = session.createQuery(hql);			
+			query.setParameter("email", email);
+			query.setParameter("password", password);
+			
+			pessoa = (Person) query.uniqueResult();
+	        
+		} finally {
+		
+			session.close();
+		}
+		
+		return pessoa;
+	}
+	
 	@Override
 	public List<Person> getAll() throws SQLExceptionIFOpenDoors {
 		return super.getAll("Person.getAll");

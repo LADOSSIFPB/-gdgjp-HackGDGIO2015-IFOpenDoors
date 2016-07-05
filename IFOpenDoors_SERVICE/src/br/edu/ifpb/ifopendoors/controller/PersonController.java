@@ -21,6 +21,7 @@ import br.edu.ifpb.ifopendoors.entity.Erro;
 import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
+import br.edu.ifpb.ifopendoors.validatio.Validate;
 
 /**
  * Controlador para Person.
@@ -77,6 +78,48 @@ public class PersonController {
 		return builder.build();		
 	}
 	
+	@POST
+	@Path("/login")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response login(Person pessoaAcesso) {
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+		
+		// Validação dos dados de entrada.
+		int validacao = Validate.acessoPessoa(pessoaAcesso);
+		
+		if (validacao == Validate.VALIDATE_OK) {
+			
+			try {
+				
+				//Login Pessoa.
+				Person pessoa = PersonDAO.getInstance().login(
+						pessoaAcesso.getEmail(), 
+						pessoaAcesso.getPassword());
+				
+				if (pessoa != null) {
+					
+					// Operação realizada com sucesso.
+					builder.status(Response.Status.OK);
+					builder.entity(pessoa);
+				
+				} else {
+					
+					builder.status(Response.Status.UNAUTHORIZED);
+				}
+			
+			} catch (SQLExceptionIFOpenDoors e) {
+
+				builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+						e.getErro());
+				
+			}			
+		}
+		
+		return builder.build();		
+	}
 	
 	@GET
 	@Path("/id/{id}")

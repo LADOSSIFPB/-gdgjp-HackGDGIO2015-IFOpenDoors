@@ -9,7 +9,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.edu.ifpb.ifopendoors.entity.Close;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.hibernate.HibernateUtil;
