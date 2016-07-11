@@ -1,0 +1,123 @@
+ body{
+  background-color: #eeeeee;
+ }
+
+.save{
+  text-align: right;
+  font-size: 22;
+  color: black;
+}
+
+.barra{
+  position: fixed !important;
+  background-color: white;
+  bottom: 0px;
+  left:0px;
+  top:0px;
+  z-index:12;
+}
+
+.prin{
+  color: black;
+  margin-left: 5px;
+  font-size: 15;
+  margin-right: 225px;
+}
+
+.top{
+  color: black;
+  margin-left: 25px;
+  margin-top: -13px;
+  font-size: 13;
+}
+
+.fora{
+  position: fixed !important;
+  left: 13px;
+  top: 15px;
+  font-size: 25;
+  color: white;
+  z-index:13;
+}
+
+.nomeFora{
+  position: relative;
+  font-size: 22;
+  color: white;
+  z-index:13;
+  top: 2px;
+}
+
+.dentro{
+  margin-top: 10px;
+  font-size: 25;
+  color: #4e83b1;
+}
+
+.ofusca{
+  position: fixed;
+  top:0;
+  left:0;
+  z-index:11;
+  background-color:#000;
+  width:100%;
+  height:100%;
+  opacity: .50;
+  filter: alpha(opacity=65);
+}
+
+.barraCima{
+  position: fixed !important;
+  z-index:11;
+  width: 100%;
+  background-color: #4e83b1;
+  top: 0px;
+  margin-top: -20px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20;
+  color: white;
+}
+.busca{
+  height: 70px;
+}
+.primeiro{
+  position: relative;
+  top: 10%;
+}
+.segundo{
+  left: 20px;
+  right: 20px;
+}
+
+.nav-pills>li>a:hover,
+.nav-pills>li>a:focus,
+.nav-pills>li>a:active {
+  background-color: white;
+  border-left: 3px solid #4e83b1;
+  margin-left: 1px;
+  border-radius: 0;
+}
+
+.nav-pills>li>a:hover>div,
+.nav-pills>li>a:focus>div,
+.nav-pills>li>a:active>div {
+  color: #4e83b1;
+}
+
+.rodape{
+  position: fixed !important;
+  z-index: 2;
+  background-color: #4e83b1;
+  width: 100%;
+  bottom: 0px;
+  left:0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 100px;
+  padding-right: 100px;
+  }
+
+}
