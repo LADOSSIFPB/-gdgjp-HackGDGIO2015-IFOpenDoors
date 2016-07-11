@@ -43,9 +43,8 @@
       
       <div class="col-md-6">
         <form class="well">
-          <div class="save">
+          <div class="save"></div>
 
-          </div>
           <div class="form-group">
             <label>Nome Completo</label>
             <input type="text" class="form-control"  ng-model="pessoa.nome">
@@ -73,16 +72,25 @@
           <input type="password" class="form-control" placeholder= "Mínimo 6 DÍGITOS" ng-model="pessoa.senha" ng-pattern ="/\d{6}/">
         </div>
 
-      <div class="alert alert-success" ng-show="pessoa.nome && pessoa.tipo && pessoa.cpf && pessoa.email && pessoa.senha">
-        <strong>Sucesso</strong> Todos os campos foram preenchidos com sucesso.
-      </div>
-        <hr/>
-          <button type="button" ng-click= "adicionarPessoa(pessoa)" class="btn btn-block btn-success" ng-disabled="!pessoa.nome || !pessoa.tipo || !pessoa.cpf || !pessoa.email || !pessoa.senha" data-toggle="modal" data-target="#CadastroPessoa">Cadastrar Pessoa</button>
+        <div class="form-group">
+          <label>Repita a Senha</label>
+          <input type="password" class="form-control" placeholder= "Mínimo 6 DÍGITOS" ng-model="senhaVer" ng-pattern ="/\d{6}/">
+        </div>
+
+
+      <div class="alert alert-success" ng-show="pessoa.nome && pessoa.tipo && pessoa.cpf && pessoa.email && pessoa.senha1 && pessoa.senha2">
+        <strong>Sucesso!</strong> Todos os campos foram preenchidos com sucesso.
       </div>
 
-      <hr>
-      <hr>
-      
+      <div class="alert alert-danger fade in" ng-show="!senha(pessoa.senha,senhaVer)">
+        <strong>Cuidado!</strong> As senhas não coincidem.
+      </div>
+
+        <hr/>
+          <button type="button" ng-click= "adicionarPessoa(pessoa)" class="btn btn-block btn-success" ng-disabled="!pessoa.nome || !pessoa.tipo || !pessoa.cpf || !pessoa.email || !pessoa.senha || !senha(pessoa.senha,senhaVer)" data-toggle="modal" data-target="#CadastroPessoa">Cadastrar Pessoa</button>
+      </div>
+
+
       <div class="col-md-12 rodape">
         <img class="img" src="img/ifpb-branco.png" width="150px" height="50px" align="left" />
         <img class="img" src="img/ladoss-branco.png" width="200px" height="40px" align="right" />       
