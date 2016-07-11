@@ -1,0 +1,82 @@
+<html lang="pt" ng-app="ifopendoors">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/my/gerenciarSalas.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/my/gerenciarSalas.js"></script>
+  </head>
+
+  <body ng-controller="ifopendoorsCtrl">
+    <div class="barraCima">
+      <button class="btn btn-link" ng-click="barra()">
+        <span class="glyphicon glyphicon-menu-hamburger fora"></span>
+      </button>
+      <center><h4><b class="nomeFora">Gerenciar Salas</b></h4></center>      
+    </div>
+
+    <div ng-show="show">
+      <div class="ofusca" ng-click="barra()"></div>
+
+      <nav class="affix barra">
+        <div>
+          <button class="btn btn-link" ng-click="barra()">
+            <span class="glyphicon glyphicon-menu-hamburger dentro"></span>
+          </button>
+        </div>
+        <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
+        <p></p>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#" ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
+          <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+          <li><a href="#" ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
+          <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="primeiro">
+      <div class="col-md-3"></div>
+      
+      <div class="col-md-6">
+        <div class="jumbotron">
+          <div class="row">
+
+            <div class="input-group input-group-lg">
+              <input type="text" ng-model="busca" class="form-control" placeholder="Digite nome, tipo ou descrição da sala que você procura"></input>
+              <span class="input-group-addon glyphicon glyphicon-search"></span>
+            </div>   
+
+            <div class="col-sm-6 col-md-4" ng-repeat="sala in salas | filter:busca">
+              <div class="panel"  ng-class="{'panel-success': !sala.aberto, 'panel-danger': sala.aberto}">
+                <div class="panel-heading" >{{sala.tipoSala.name}}</div>
+                <img src="img/lab1.png" ng-if="sala.tipoSala.name=='Laboratorio'">
+                <img src="img/sala.png" ng-if="sala.tipoSala.name=='Sala'">
+                <div class="caption">
+                  <h3>{{sala.nome}}</h3>
+                  <h5>{{sala.descricao}}</h5>
+                  <p></p>
+                  <p>
+                    <button href="#" class="btn btn-success btn-block" ng-if="!sala.aberto" >Abrir</button>
+                    <button href="#" class="btn btn-danger btn-block" ng-if="sala.aberto">Fechar</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+
+      <div class="col-md-3"></div>
+      
+      <div class="col-md-12 rodape">
+        <img class="img" src="img/ifpb-branco.png" width="150px" height="50px" align="left" />
+        <img class="img" src="img/ladoss-branco.png" width="200px" height="40px" align="right" />       
+      </div>      
+    </div>
+  </body>
+</html>

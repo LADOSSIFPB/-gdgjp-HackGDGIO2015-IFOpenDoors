@@ -80,6 +80,18 @@
   top: 30%;
 }
 
+.panel{
+  text-align: center;
+}
+
+.panel-heading{
+  font-size: 17;
+}
+
+.input-group{
+  margin-bottom: 50px;
+}
+
 .nav-pills>li>a:hover,
 .nav-pills>li>a:focus,
 .nav-pills>li>a:active {

@@ -16,7 +16,7 @@
       <button class="btn btn-link" ng-click="barra()">
         <span class="glyphicon glyphicon-menu-hamburger fora"></span>
       </button>
-      <center><h4><b class="nomeFora">Adicionar</b></h4></center>      
+      <center><h4><b class="nomeFora">Adicionar Sala</b></h4></center>      
     </div>
 
     <div ng-show="show">
@@ -44,12 +44,6 @@
       
       <div class="col-md-6">
         <form class="well">
-          <div class="save">
-            <button class="btn btn-link save" ng-click="addSala()" ng-disabled="!ok(escolha)">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </div>
-
           <div class="form-group">
             <label>Tipo</label>
             <select class="form-control" ng-model="escolha.tipo">
@@ -68,6 +62,9 @@
 
           <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.porta" data-toggle="modal" data-target="#escolhePorta">Escolher Porta</button>
           <button type="button" class="btn btn-block btn-success" ng-show="escolha.porta" data-toggle="modal" data-target="#escolhePorta">Porta Já Escolhida</button>
+
+          <button class="btn btn-primary btn-block" ng-click="addSala()" ng-disabled="!ok(escolha)">Adicionar</button>
+          
         </form>
       </div>
 
