@@ -1,0 +1,79 @@
+<html lang="pt" ng-app="ifopendoors">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/my/ListarPessoa.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/my/addPessoa.js"></script>
+  </head>
+
+ <body ng-controller="ifopendoorsCtrl">
+   <div class="barraCima">
+     <button class="btn btn-link" ng-click="barra()">
+       <span class="glyphicon glyphicon-menu-hamburger fora"></span>
+     </button>
+     <center><h4><b class="nomeFora">Lista de Pessoas</b></h4></center>      
+   </div>
+    <div ng-show="show">
+     <div class="ofusca" ng-click="barra()"></div>
+
+<nav class="affix barra">
+        <div>
+          <button class="btn btn-link" ng-click="barra()">
+            <span class="glyphicon glyphicon-menu-hamburger dentro"></span>
+          </button>
+        </div>
+        <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
+        <p></p>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#" ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
+          <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+          <li><a href="#" ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
+          <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="primeiro">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form class="well">
+          <div class="save"></div>
+
+
+<input type="text" ng-model="busca" class="form-control" placeholder="O que você está buscando?"></div> 
+
+
+     <div class="tabelinha">   
+            <table class="table md table-striped table-bordered">
+              <thead>
+                <th data-field="Nome">Nome</th>
+                <th data-field="Cpf">CPF</th>
+                <th data-field="Cpf">Tipo</th>
+                <th data-field="Cpf">Email</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="pessoa in pessoas | filter:busca">
+                  <td>{{pessoa.nome}}</td>
+                  <td>{{pessoa.cpf}}</td>
+                  <td>{{pessoa.tipo}}</td> 
+                  <td>{{pessoa.email}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      <div class="col-md-12 rodape">
+        <img class="img" src="img/ifpb-branco.png" width="150px" height="50px" align="left" />
+        <img class="img" src="img/ladoss-branco.png" width="200px" height="40px" align="right" />       
+      </div>      
+      <hr><hr><hr><hr><hr>
+    </div>
+    </form>
+    </div>
+    </div>
+    </body>
+    </html>
+
