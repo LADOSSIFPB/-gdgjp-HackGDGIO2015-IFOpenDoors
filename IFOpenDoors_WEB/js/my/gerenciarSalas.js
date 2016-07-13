@@ -4,25 +4,25 @@ angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $h
   $scope.salasOpcaos = ['Gerenciar', 'Adicionar'];
   $scope.pessoasOpcaos = ['Gerenciar', 'Adicionar'];
   $scope.salas = [];
-  
-  $scope.isOpen = function (sala) {
-    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOpen/"+sala.id).success(function (data) {
-      sala.isOpen = data;
-
-      $scope.salas.push(sala);
-    })
-  };
 
   $scope.carregarSalas = function () {
-    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/all").success(function (data) {
-      $scope.setarAbertura(data);
-    })
-  };
+    var isOpen = function (sala) {
+      $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOpen/"+sala.id).success(function (data) {
+        sala.isOpen = data;
 
-  $scope.setarAbertura = function (salas) {
-    for (var i = 0; i < salas.length; i++) {
-      $scope.isOpen(salas[i]);
-    }
+        $scope.salas.push(sala);
+      })
+    };
+
+    var setarAbertura = function (salas) {
+      for (var i = 0; i < salas.length; i++) {
+        isOpen(salas[i]);
+      }
+    };
+
+    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/all").success(function (data) {
+      setarAbertura(data);
+    })
   };
 
   $scope.abrir = function (sala) {
@@ -34,6 +34,8 @@ angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $h
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/room/open", requisicao).success(function (data) {
     });
 
+    delete $scope.salas;
+
     $scope.salas = [];
     $scope.carregarSalas();
   };
@@ -41,6 +43,8 @@ angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $h
   $scope.fechar = function (idSala) {
     $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/close/" + idSala).success(function (data) {
     });
+
+    delete $scope.salas;
 
     $scope.salas = [];
     $scope.carregarSalas();
