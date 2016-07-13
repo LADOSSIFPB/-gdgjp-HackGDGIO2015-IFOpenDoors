@@ -1,6 +1,8 @@
 package br.edu.ifpb.ifopendoors.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -57,5 +59,17 @@ public class DoorController {
 		}		
 		
 		return builder.build();	
+	}
+	
+	@GET
+	@Path("/all")
+	@Produces("application/json")
+	public List<Door> getAll() {
+		
+		List<Door> door = new ArrayList<Door>();
+		
+		door = DoorDAO.getInstance().getAll();
+		
+		return door;
 	}
 }

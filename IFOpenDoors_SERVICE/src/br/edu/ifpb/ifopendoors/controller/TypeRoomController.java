@@ -1,16 +1,21 @@
 																																																																																																																																																																																																																																																																																																																																																															package br.edu.ifpb.ifopendoors.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import br.edu.ifpb.ifopendoors.dao.RoomDAO;
 import br.edu.ifpb.ifopendoors.dao.TypeRoomDAO;
 import br.edu.ifpb.ifopendoors.entity.Erro;
+import br.edu.ifpb.ifopendoors.entity.Room;
 import br.edu.ifpb.ifopendoors.entity.TypeRoom;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
@@ -48,5 +53,17 @@ public class TypeRoomController {
 		}		
 		
 		return builder.build();		
+	}
+	
+	@GET
+	@Path("/all")
+	@Produces("application/json")
+	public List<TypeRoom> getAll() {
+		
+		List<TypeRoom> typeRoom = new ArrayList<TypeRoom>();
+		
+		typeRoom = TypeRoomDAO.getInstance().getAll();
+		
+		return typeRoom;
 	}
 }

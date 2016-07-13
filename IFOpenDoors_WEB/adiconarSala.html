@@ -46,9 +46,8 @@
         <form class="well">
           <div class="form-group">
             <label>Tipo</label>
-            <select class="form-control" ng-model="escolha.tipo">
-              <option>Laboratório</option>
-              <option>Sala</option>
+            <select class="form-control" ng-model="escolha.tipoSala.id">
+              <option ng-repeat="tipo in tiposSala" ng-value="tipo.id">{{tipo.name}}</option>
             </select>
           </div>
           <div class="form-group">
@@ -60,11 +59,11 @@
             <textarea class="form-control" rows="2" placeholder="Usado nas aulas de informática" ng-model="escolha.descricao"></textarea>
           </div>
 
-          <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.porta" data-toggle="modal" data-target="#escolhePorta">Escolher Porta</button>
-          <button type="button" class="btn btn-block btn-success" ng-show="escolha.porta" data-toggle="modal" data-target="#escolhePorta">Porta Já Escolhida</button>
+          <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.door.id" data-toggle="modal" data-target="#escolhePorta">Escolher Porta</button>
+          <button type="button" class="btn btn-block btn-success" ng-show="escolha.door.id" data-toggle="modal" data-target="#escolhePorta">Porta Já Escolhida</button>
 
-          <button class="btn btn-primary btn-block" ng-click="addSala()" ng-disabled="!ok(escolha)">Adicionar</button>
-          
+          <button class="btn btn-primary btn-block" ng-click="addSala(escolha)" ng-disabled="!ok(escolha)">Adicionar</button>
+
         </form>
       </div>
 
@@ -95,15 +94,15 @@
               </thead>
               <tbody>
                 <tr ng-repeat="porta in portas">
-                  <td><input type="radio" name="optionsRadios" ng-model="escolha.porta" ng-value="porta.numero"></td>
-                  <td>{{porta.numero}}</td>
+                  <td><input type="radio" name="optionsRadios" ng-model="escolha.door.id" ng-value="porta.id"></td>
+                  <td>{{porta.id}}</td>
                   <td>{{porta.ip}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="!escolha.porta">Pronto</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="!escolha.door.id">Pronto</button>
           </div>
         </div>
       </div>

@@ -53,9 +53,7 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 		return room;
 	}
 	
-	public boolean isOpen(Room room){
-		
-		boolean isOpen = false;
+	public Open getLastOpen(int idRoom){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		
@@ -64,18 +62,15 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 				+ " 	select c.open.id"
 				+ "		from Close as c"
 				+ "		where c.open.room.id = :idSala"
-				+ ")";
+				+ ")"
+				+ " and o.room.id = :idSala";
 		
 		Query query = session.createQuery(hql);
-		query.setParameter("idSala", room.getId());
+		query.setParameter("idSala", idRoom);
 	
-		Open open = (Open) query.uniqueResult();
+		Open open =  (Open) query.uniqueResult();	
 		
-		if(open != null)
-			isOpen = true;		
-		
-		return isOpen;
-		
+		return open;
 	}
 
 	@Override

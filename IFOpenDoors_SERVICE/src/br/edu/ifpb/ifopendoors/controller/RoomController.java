@@ -75,12 +75,12 @@ public class RoomController {
 			Integer idDoor = room.getDoor().getId();
 			Door door = DoorDAO.getInstance().getById(idDoor);
 			
-			boolean isOpen = RoomDAO.getInstance().isOpen(room);
+			Open lastOpen = RoomDAO.getInstance().getLastOpen(room.getId());
 			
 			// Verificar disponibilidade de sala.
 			//OpenDAO.getInstance().isOpenRoom(idRoom);
 			
-			if (person != null && room != null && door.getIp() != null && !isOpen) {
+			if (person != null && room != null && door.getIp() != null && lastOpen==null) {
 				
 				open.setPerson(person);
 				room.setDoor(door);
@@ -112,11 +112,10 @@ public class RoomController {
 	 * @param {?}
 	 * @return
 	 */
-	@POST
-	@Path("/close")
-	@Consumes("application/json")
+	@GET
+	@Path("/close/{id}")
 	@Produces("application/json")
-	public Response close(Close close) {
+	public Response close(@PathParam("id") int idRoomC) {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 		
@@ -126,44 +125,45 @@ public class RoomController {
 		if (validacao == Validate.VALIDATE_OK) {
 			
 			// Consultar Room e Person.
-			Integer idOpen = close.getOpen().getId();
-			Open open = OpenDAO.getInstance().getById(idOpen);
 			
-			Integer idPerson = open.getPerson().getId();	
-			Person person = PersonDAO.getInstance().getById(idPerson);
+			Open open = RoomDAO.getInstance().getLastOpen(idRoomC);
+			
+			if(open!=null){
+				Integer idPerson = open.getPerson().getId();	
+				Person person = PersonDAO.getInstance().getById(idPerson);
 
-			Integer idRoom = open.getRoom().getId();
-			Room room = RoomDAO.getInstance().getById(idRoom);
+				Integer idRoom = open.getRoom().getId();
+				Room room = RoomDAO.getInstance().getById(idRoom);
 
-			Integer idDoor = room.getDoor().getId();
-			Door door = DoorDAO.getInstance().getById(idDoor);
-			
-			boolean result = RoomDAO.getInstance().isOpen(room);
-			
-			// Verificar disponibilidade de sala.
-			//OpenDAO.getInstance().isOpenRoom(idRoom);
-			
-			if (person != null && room != null && door.getIp() != null && result) {
+				Integer idDoor = room.getDoor().getId();
+				Door door = DoorDAO.getInstance().getById(idDoor);
 				
-				open.setPerson(person);
-				room.setDoor(door);
-				open.setRoom(room);
+				// Verificar disponibilidade de sala.
+				//OpenDAO.getInstance().isOpenRoom(idRoom);
 				
-				Date now = new Date();
-				close.setTime(now);
-				
-				close.setOpen(open);
-				
-				Integer idClose = CloseDAO.getInstance().insert(close);
-				
-				if (idClose != BancoUtil.IDVAZIO) {
+				if (person != null && room != null && door.getIp() != null) {
 					
-					//Client client = ClientBuilder.newClient();
-		    		//Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
-		    		//		.request().get();		    		
-	
-					builder.status(Response.Status.OK);
-					builder.entity(close);
+					open.setPerson(person);
+					room.setDoor(door);
+					open.setRoom(room);
+					
+					Close close = new Close();
+					Date now = new Date();
+					
+					close.setTime(now);					
+					close.setOpen(open);
+					
+					Integer idClose = CloseDAO.getInstance().insert(close);
+					
+					if (idClose != BancoUtil.IDVAZIO) {
+						
+						//Client client = ClientBuilder.newClient();
+			    		//Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
+			    		//		.request().get();		    		
+		
+						builder.status(Response.Status.OK);
+						builder.entity(close);
+					}
 				}
 			}
 		}		
@@ -276,11 +276,15 @@ public class RoomController {
 
 			Room room = RoomDAO.getInstance().getById(idRoom);
 			
-			boolean result = RoomDAO.getInstance().isOpen(room);			
+			Open open = RoomDAO.getInstance().getLastOpen(room.getId());
 			
 			builder.status(Response.Status.OK);
-			builder.entity(result);
-
+			
+			if(open!=null){
+				builder.entity(true);
+			}else{
+				builder.entity(false);
+			}			
 		} catch (SQLExceptionIFOpenDoors qme) {
 
 			Erro erro = new Erro();

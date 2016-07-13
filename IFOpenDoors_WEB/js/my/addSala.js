@@ -1,14 +1,30 @@
 angular.module('ifopendoors', []);
-angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope) {
+angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $http) {
   $scope.escolha = {};
   $scope.salasOpcaos = ['Gerenciar', 'Adicionar'];
   $scope.pessoasOpcaos = ['Gerenciar', 'Adicionar'];
-  $scope.portas = [
-    {numero:1, ip:"192.168.0.34"},
-    {numero:4, ip:"192.168.2.24"},
-    {numero:7, ip:"192.168.0.201"},
-    {numero:19, ip:"192.168.1.32"}
-  ];  
+
+  var carregarPortas = function () {
+    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/door/all").success(function (data) {
+      $scope.portas = data;
+    }).error(function (data, status) {
+      $scope.message = "Aconteceu um problema: " + data;
+    });
+  };
+
+  var carregarTiposSala = function () {
+    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/typeroom/all").success(function (data) {
+      $scope.tiposSala = data;
+    }).error(function (data, status) {
+      $scope.message = "Aconteceu um problema: " + data;
+    });
+  };
+
+  $scope.addSala = function (sala) {
+    $http.post("http://localhost:8080/IFOpenDoors_SERVICE/room/insert", sala).success(function (data) {
+      delete $scope.escolha;
+    });
+  };
 
   $scope.barra = function () {
     $scope.show = !$scope.show;
@@ -23,9 +39,12 @@ angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope) {
   };
 
   $scope.ok = function (escolha) {
-    if(escolha.porta && escolha.nome && escolha.descricao && escolha.tipo){
+    if(escolha.door && escolha.nome && escolha.descricao && escolha.tipoSala){
       return true;
     }
     return false;
   };
+
+  carregarPortas();
+  carregarTiposSala();
 });
