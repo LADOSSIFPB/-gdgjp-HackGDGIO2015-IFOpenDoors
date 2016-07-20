@@ -26,7 +26,7 @@ body {
   padding-right: 100px;
 }
 
-.jumbotron {
+.jumbotron{
   margin-top: 110px;
   margin-bottom: 90px;
   margin-right: auto;
@@ -34,6 +34,12 @@ body {
   background-color: #4e83b1; 
 }
 
+.alert{
+  position: fixed !important;
+  margin-top: 80px;
+  right: 0px;
+  z-index:11;
+}
 
 .btn{
   margin-top: 40px;

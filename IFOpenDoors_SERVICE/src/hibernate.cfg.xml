@@ -37,7 +37,8 @@
 		<mapping class="br.edu.ifpb.ifopendoors.entity.Open" />
 		<mapping class="br.edu.ifpb.ifopendoors.entity.Close" />
 		<mapping class="br.edu.ifpb.ifopendoors.entity.Door" />
-		<mapping class="br.edu.ifpb.ifopendoors.entity.TypeRoom" />				
+		<mapping class="br.edu.ifpb.ifopendoors.entity.TypeRoom" />	
+		<mapping class="br.edu.ifpb.ifopendoors.entity.Login" />				
 
 	</session-factory>
 </hibernate-configuration>
