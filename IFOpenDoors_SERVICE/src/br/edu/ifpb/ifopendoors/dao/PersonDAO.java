@@ -1,6 +1,5 @@
 package br.edu.ifpb.ifopendoors.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;

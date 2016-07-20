@@ -16,8 +16,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import br.edu.ifpb.ifopendoors.dao.LoginDAO;
 import br.edu.ifpb.ifopendoors.dao.PersonDAO;
 import br.edu.ifpb.ifopendoors.entity.Erro;
+import br.edu.ifpb.ifopendoors.entity.Login;
 import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
@@ -100,6 +102,16 @@ public class PersonController {
 						pessoaAcesso.getPassword());
 				
 				if (pessoa != null) {
+					
+					// Registro do Login
+					Date agora = new Date();
+					
+					Login login = new Login();
+					login.setPerson(pessoa);
+					login.setTime(agora);
+					
+					// Registro de Login para a Pessoa.
+					LoginDAO.getInstance().insert(login);
 					
 					// Operação realizada com sucesso.
 					builder.status(Response.Status.OK);

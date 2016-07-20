@@ -1,111 +1,111 @@
 <html lang="pt" ng-app="ifopendoors">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/my/addSala.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/my/addSala.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="css/my/addSala.css" rel="stylesheet">
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/my/addSala.js"></script>
+</head>
 
-  <body ng-controller="ifopendoorsCtrl">
-    <div class="barraCima">
-      <button class="btn btn-link" ng-click="barra()">
-        <span class="glyphicon glyphicon-menu-hamburger fora"></span>
-      </button>
-      <center><h4><b class="nomeFora">Adicionar Sala</b></h4></center>      
-    </div>
+<body ng-controller="ifopendoorsCtrl">
+  <div class="barraCima">
+    <button class="btn btn-link" ng-click="barra()">
+      <span class="glyphicon glyphicon-menu-hamburger fora"></span>
+    </button>
+    <center><h4><b class="nomeFora">Adicionar Sala</b></h4></center>      
+  </div>
 
-    <div ng-show="show">
-      <div class="ofusca" ng-click="barra()"></div>
+  <div ng-show="show">
+    <div class="ofusca" ng-click="barra()"></div>
 
-      <nav class="affix barra">
-        <div>
-          <button class="btn btn-link" ng-click="barra()">
-            <span class="glyphicon glyphicon-menu-hamburger dentro"></span>
-          </button>
-        </div>
-        <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
-        <p></p>
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#" ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
-          <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
-          <li><a href="#" ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
-          <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="primeiro">
-      <div class="col-md-3"></div>
-      
-      <div class="col-md-6">
-        <form class="well">
-          <div class="form-group">
-            <label>Tipo</label>
-            <select class="form-control" ng-model="escolha.tipoSala.id">
-              <option ng-repeat="tipo in tiposSala" ng-value="tipo.id">{{tipo.name}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" class="form-control" placeholder="Infomática 1" ng-model="escolha.nome">
-          </div>
-          <div class="form-group">
-            <label>Descrição</label>
-            <textarea class="form-control" rows="2" placeholder="Usado nas aulas de informática" ng-model="escolha.descricao"></textarea>
-          </div>
-
-          <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.door.id" data-toggle="modal" data-target="#escolhePorta">Escolher Porta</button>
-          <button type="button" class="btn btn-block btn-success" ng-show="escolha.door.id" data-toggle="modal" data-target="#escolhePorta">Porta Já Escolhida</button>
-
-          <button class="btn btn-primary btn-block" ng-click="addSala(escolha)" ng-disabled="!ok(escolha)">Adicionar</button>
-
-        </form>
+    <nav class="affix barra">
+      <div>
+        <button class="btn btn-link" ng-click="barra()">
+          <span class="glyphicon glyphicon-menu-hamburger dentro"></span>
+        </button>
       </div>
+      <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
+      <p></p>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#" ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
+        <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+        <li><a href="#" ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
+        <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+      </ul>
+    </nav>
+  </div>
 
-      <div class="col-md-3"></div>
+  <div class="primeiro">
+    <div class="col-md-3"></div>
 
-      
-      <div class="col-md-12 rodape">
-        <img class="img" src="img/ifpb-branco.png" width="150px" height="50px" align="left" />
-        <img class="img" src="img/ladoss-branco.png" width="200px" height="40px" align="right" />       
-      </div>      
+    <div class="col-md-6">
+      <form class="well">
+        <div class="form-group">
+          <label>Tipo</label>
+          <select class="form-control" ng-model="escolha.tipoSala.id">
+            <option ng-repeat="tipo in tiposSala" ng-value="tipo.id">{{tipo.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" class="form-control" placeholder="Infomática 1" ng-model="escolha.nome">
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea class="form-control" rows="2" placeholder="Usado nas aulas de informática" ng-model="escolha.descricao"></textarea>
+        </div>
+
+        <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.door.id" data-toggle="modal">Escolher Porta</button>
+        <button type="button" class="btn btn-block btn-success" ng-show="escolha.door.id" data-toggle="modal">Porta Já Escolhida</button>
+
+        <button class="btn btn-primary btn-block" ng-click="addSala(escolha)" ng-disabled="!ok(escolha)">Adicionar</button>
+
+      </form>
     </div>
 
-    <div class="modal fade" id="escolhePorta" tabindex="-1" role="dialog" aria-labelledby="escolhePorta">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h2 class="modal-title" id="myModalLabel">Portas Disponiveis</h4>
-          </div>
-          <div class="modal-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th data-field="numero">Número</th>
-                  <th data-field="IP">IP</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="porta in portas">
-                  <td><input type="radio" name="optionsRadios" ng-model="escolha.door.id" ng-value="porta.id"></td>
-                  <td>{{porta.id}}</td>
-                  <td>{{porta.ip}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="!escolha.door.id">Pronto</button>
-          </div>
+    <div class="col-md-3"></div>
+
+
+    <div class="col-md-12 rodape">
+      <img class="img" src="img/ifpb-branco.png" width="150px" height="50px" align="left" />
+      <img class="img" src="img/ladoss-branco.png" width="200px" height="40px" align="right" />       
+    </div>      
+  </div>
+
+  <div class="modal fade" id="escolhePorta" tabindex="-1" role="dialog" aria-labelledby="escolhePorta">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="modal-title" id="myModalLabel">Portas Disponiveis</h2>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th data-field="numero">Número</th>
+                <th data-field="IP">IP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="porta in portas">
+                <td><input type="radio" name="optionsRadios" ng-model="escolha.door.id" ng-value="porta.id"></td>
+                <td>{{porta.id}}</td>
+                <td>{{porta.ip}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="!escolha.door.id">Pronto</button>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>

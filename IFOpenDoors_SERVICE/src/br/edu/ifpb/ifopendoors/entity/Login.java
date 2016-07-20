@@ -1,0 +1,55 @@
+package br.edu.ifpb.ifopendoors.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity 
+@Table(name="tb_login")
+@NamedQuery(name = "Login.getAll", query = "from Login")
+public class Login {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_login")
+	private int id;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Person person;
+	
+	@Column(name="dt_login", insertable=true, nullable = false)
+	private Date date;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	
+	public Date getTime() {
+		return date;
+	}
+
+	public void setTime(Date agora) {
+		this.date = agora;
+	}
+}
