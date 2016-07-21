@@ -59,8 +59,8 @@
           <textarea class="form-control" rows="2" placeholder="Usado nas aulas de informática" ng-model="escolha.descricao"></textarea>
         </div>
 
-        <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.door.id" data-toggle="modal">Escolher Porta</button>
-        <button type="button" class="btn btn-block btn-success" ng-show="escolha.door.id" data-toggle="modal">Porta Já Escolhida</button>
+        <button type="button" class="btn btn-block btn-danger" ng-show="!escolha.door.id" data-toggle="modal" data-target="#escolhePorta">Escolher Porta</button>
+        <button type="button" class="btn btn-block btn-success" ng-show="escolha.door.id" data-toggle="modal" data-target="#escolhePorta">Porta Já Escolhida</button>
 
         <button class="btn btn-primary btn-block" ng-click="addSala(escolha)" ng-disabled="!ok(escolha)">Adicionar</button>
 

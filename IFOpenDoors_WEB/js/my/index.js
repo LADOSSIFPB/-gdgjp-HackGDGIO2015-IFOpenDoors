@@ -1,12 +1,12 @@
 angular.module('ifopendoors', []);
-angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $http, $location, $window) {
+angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $http, $location) {
 	$scope.UNAUTHORIZED = false;
 
     $scope.loginValidation = function (login) {
-        console.log(login);
         $http.post("http://localhost:8080/IFOpenDoors_SERVICE/person/login", login).success(function (data) {
-          var url = "http://" + $window.location.host + "/gerenciarSalas.html";
-          window.location = "/gerenciarSalas.html";
+          $scope.UNAUTHORIZED = false;
+
+          window.location.replace("http://" + location.host + "/gerenciarSalas.html");
       }).error( function (data, status, headers, config) {
         if(status==401){
             $scope.UNAUTHORIZED = true;
@@ -14,5 +14,7 @@ angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $h
     });
   };
 
-  $().alert('close');
+  $scope.closeAlert = function () {
+    $scope.UNAUTHORIZED = false;
+};
 });
