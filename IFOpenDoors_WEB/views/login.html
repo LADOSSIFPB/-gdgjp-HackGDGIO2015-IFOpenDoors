@@ -1,0 +1,26 @@
+<link href="css/login.css" rel="stylesheet">
+
+<div class="alert alert-danger alert-dismissible" role="alert" ng-show="UNAUTHORIZED">
+  <button type="button" class="close" aria-label="Close" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></button>
+  <strong>Acesso Negado!</strong> Email ou senha incorreto.
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-sm-2 col-xs-1"></div>
+  <div class="col-md-4 jumbotron col-sm-8 col-xs-10">
+    <center><img class="img" src="img/logoP.png" width="150px" height= "150px"/></center>
+
+    <div class="input-group">
+      <span class="input-group-addon glyphicon glyphicon-envelope"></span> 
+      <input type="email" ng-model="login.email" class="form-control" placeholder="Email">
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon glyphicon glyphicon-lock"></span>          
+      <input type="password" ng-model="login.password" class="form-control" placeholder="Senha">
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block login" ng-click="loginValidation(login)" ng-disabled="!login.email || !login.password">Login</button>
+  </div>
+  <div class="col-md-4 col-sm-2 col-xs-1"></div>
+</div>

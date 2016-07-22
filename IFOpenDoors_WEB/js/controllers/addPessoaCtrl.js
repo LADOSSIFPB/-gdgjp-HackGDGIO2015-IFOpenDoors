@@ -1,6 +1,6 @@
-angular.module('ifopendoors', []);
+angular.module('IfOpenDoors', []);
 
-angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $http) {
+angular.module("IfOpenDoors").controller("ifopendoorsCtrl", function ($scope, $http) {
   $scope.escolha = {};
   $scope.salasOpcaos = ['Gerenciar', 'Adicionar'];
   $scope.pessoasOpcaos = ['Gerenciar', 'Adicionar'];

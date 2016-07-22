@@ -12,32 +12,6 @@
 </head>
 
 <body ng-controller="ifopendoorsCtrl">
-  <div class="barraCima">
-    <button class="btn btn-link" ng-click="barra()">
-      <span class="glyphicon glyphicon-menu-hamburger fora"></span>
-    </button>
-    <center><h4><b class="nomeFora">Gerenciar Salas</b></h4></center>      
-  </div>
-
-  <div ng-show="show">
-    <div class="ofusca" ng-click="barra()"></div>
-
-    <nav class="affix barra">
-      <div>
-        <button class="btn btn-link" ng-click="barra()">
-          <span class="glyphicon glyphicon-menu-hamburger dentro"></span>
-        </button>
-      </div>
-      <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
-      <p></p>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#" ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
-        <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
-        <li><a href="#" ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
-        <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
-      </ul>
-    </nav>
-  </div>
 
   <div class="primeiro">
     <div class="col-md-3"></div>
