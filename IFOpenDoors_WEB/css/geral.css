@@ -4,9 +4,13 @@ body {
   height: 100%;
 }
 
-.primeiro{
-  position: relative;
-  top: 10%;
+div{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.inicio{
+  margin-top: 10%;
 }
 
 .barraCima{
@@ -37,7 +41,6 @@ body {
 .fora:focus,
 .fora:active {
   color: white;
-  cursor:  default;
 }
 
 .dentro,
@@ -45,7 +48,6 @@ body {
 .dentro:focus,
 .dentro:active {
   color: #4e83b1;
-  cursor:  default;
 }
 
 .nomeFora{

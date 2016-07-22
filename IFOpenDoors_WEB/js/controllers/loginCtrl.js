@@ -1,4 +1,4 @@
-angular.module("IfOpenDoorsApp").controller("loginCtrl", function ($scope, $http) {
+angular.module("IfOpenDoorsApp").controller("loginCtrl", function ($scope, $http, $location) {
 	$scope.UNAUTHORIZED = false;
   $scope.app = "IfOpenDoors";
 

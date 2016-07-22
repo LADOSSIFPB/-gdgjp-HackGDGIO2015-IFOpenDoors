@@ -7,6 +7,10 @@ app.config(['$routeProvider',function($routeProvider) {
 		templateUrl : 'views/login.html',
 		controller     : 'loginCtrl',
 	}).
+	when('/Salas', {
+		templateUrl : 'views/gerenciarSalas.html',
+		controller     : 'gerenciarSalasCtrl',
+	}).
 	otherwise({
 		redirectTo: '/'
 	});

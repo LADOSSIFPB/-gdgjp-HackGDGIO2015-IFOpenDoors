@@ -11,16 +11,17 @@
   <script src="js/app.js"></script>
   <script src="js/controllers/loginCtrl.js"></script>
   <script src="js/controllers/geralCtrl.js"></script>
+  <script src="js/controllers/gerenciarSalasCtrl.js"></script>
   <link href="css/geral.css" rel="stylesheet">
 </head>
 <body ng-controller="geralCtrl">
 
-  <div class="btn btn-link" ng-click="barra()" ng-class="{'dentro': show, 'fora': !show}">
+  <div class="btn btn-link" ng-click="barra()" ng-class="{'dentro': show, 'fora': !show}" ng-if="logado">
     <span class="glyphicon glyphicon-menu-hamburger"></span>
   </div>
 
   <div class="barraCima">
-    <center><h4><b class="nomeFora">Adicionar Sala</b></h4></center>      
+    <center><h4><b class="nomeFora">{{app}}</b></h4></center>      
   </div>
 
   <div ng-show="show">
@@ -31,9 +32,9 @@
       <p></p>
       <ul class="nav nav-pills nav-stacked">
         <li><a ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
-        <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+        <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top">{{opcao.name}}</div></a></li>
         <li><a ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
-        <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a href="#"><div class="top">{{opcao}}</div></a></li>
+        <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top">{{opcao.name}}</div></a></li>
       </ul>
     </nav>
   </div>
