@@ -12,11 +12,12 @@
   <script src="js/controllers/loginCtrl.js"></script>
   <script src="js/controllers/geralCtrl.js"></script>
   <script src="js/controllers/gerenciarSalasCtrl.js"></script>
+  <script src="js/services/appService.js"></script>
   <link href="css/geral.css" rel="stylesheet">
 </head>
 <body ng-controller="geralCtrl">
 
-  <div class="btn btn-link" ng-click="barra()" ng-class="{'dentro': show, 'fora': !show}" ng-if="logado">
+  <div class="btn btn-link" ng-click="barra()" ng-class="{'dentro': show, 'fora': !show}" ng-if="logado()">
     <span class="glyphicon glyphicon-menu-hamburger"></span>
   </div>
 
