@@ -1,0 +1,36 @@
+<link href="css/addPessoa.css" rel="stylesheet">
+
+
+<div class="col-md-3"></div>
+
+<div class="col-md-6">
+<form class="well inicio">
+    <div class="form-group">
+      <label>Nome Completo</label>
+      <input type="text" class="form-control" placeholder="Fulano da Silva" ng-model="pessoa.name">
+
+      <label>CPF</label>
+      <input type="text" class="form-control" placeholder="xxx.xxx.xxx-xx" ng-change="cpf(pessoa.cpf)" ng-model="pessoa.cpf">
+
+      <label>Email</label>
+      <input type="email" class="form-control" placeholder="nome@ifpb.edu" ng-model="pessoa.email">
+
+      <label>Senha do Usuário</label>
+      <input type="password" class="form-control" placeholder= "Mínimo 6 digitos" ng-model="pessoa.password" ng-pattern ="/\d{6}/">
+
+      <label>Repita a Senha</label>
+      <input type="password" class="form-control" placeholder= "Mínimo 6 digitos" ng-model="senhaVer" ng-pattern ="/\d{6}/">
+    </div>
+
+    <div class="alert alert-success" ng-show="pessoa.name && (pessoa.cpf.length==14) && pessoa.email && pessoa.password && senhaVer">
+      <strong>Sucesso!</strong> Todos os campos foram preenchidos com sucesso.
+    </div>
+
+    <div class="alert alert-danger fade in" ng-show="pessoa.password!=senhaVer">
+      <strong>Cuidado!</strong> As senhas não coincidem.
+    </div>
+
+    <button type="button" ng-click= "addPessoa(pessoa)" class="btn btn-block btn-success" ng-disabled="!pessoa.name || (pessoa.cpf.length!=14) || !pessoa.email || !pessoa.password || (pessoa.password!=senhaVer)" data-toggle="modal">Cadastrar Pessoa</button>
+  </form>
+</div>
+<div class="col-md-3"></div>

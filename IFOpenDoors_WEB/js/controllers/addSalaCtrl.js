@@ -1,8 +1,6 @@
-angular.module('ifopendoors', []);
-angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $http) {
+angular.module("IfOpenDoorsApp").controller("addSalaCtrl", function ($scope, $http) {
   $scope.escolha = {};
-  $scope.salasOpcaos = ['Gerenciar', 'Adicionar'];
-  $scope.pessoasOpcaos = ['Gerenciar', 'Adicionar'];
+  $scope.app = "Adicionar Salas";
 
   var carregarPortas = function () {
     $http.get("http://localhost:8080/IFOpenDoors_SERVICE/door/all").success(function (data) {
@@ -24,18 +22,6 @@ angular.module("ifopendoors").controller("ifopendoorsCtrl", function ($scope, $h
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/room/insert", sala).success(function (data) {
       delete $scope.escolha;
     });
-  };
-
-  $scope.barra = function () {
-    $scope.show = !$scope.show;
-  };
-
-  $scope.salasOptions = function () {
-    $scope.shows = 'sala';
-  };
-
-  $scope.pessoasOptions = function () {
-    $scope.shows = 'pessoa';
   };
 
   $scope.ok = function (escolha) {

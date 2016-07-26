@@ -1,15 +1,5 @@
-angular.module('IfOpenDoors', []);
-
-angular.module("IfOpenDoors").controller("ifopendoorsCtrl", function ($scope, $http) {
+angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $http) {
   $scope.escolha = {};
-  $scope.salasOpcaos = ['Gerenciar', 'Adicionar'];
-  $scope.pessoasOpcaos = ['Gerenciar', 'Adicionar'];
-
-  $scope.adicionarPessoa= function(pessoa) {
-    $scope.pessoas.push ({pessoa});
-    delete $scope.pessoa;
-    return true;
-  };
 
   $scope.cpf= function(cpf) {
     cpf = cpf.replace(/[^0-9]/g,'')
@@ -29,18 +19,6 @@ angular.module("IfOpenDoors").controller("ifopendoorsCtrl", function ($scope, $h
       delete $scope.pessoa;
       delete $scope.senhaVer;
     });
-  };
-
-  $scope.barra = function () {
-    $scope.show = !$scope.show;
-  };
-
-  $scope.salasOptions = function () {
-    $scope.shows = 'sala';
-  };
-
-  $scope.pessoasOptions = function () {
-    $scope.shows = 'pessoa';
   };
 
   $scope.ok = function (pessoa) {
