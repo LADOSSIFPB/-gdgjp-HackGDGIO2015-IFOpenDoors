@@ -9,15 +9,3 @@
 .input-group{
   margin-bottom: 50px;
 }
-
-.rodape{
-  position: fixed !important;
-  z-index: 2;
-  background-color: #4e83b1;
-  width: 100%;
-  bottom: 0px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 100px;
-  padding-right: 100px;
-}
