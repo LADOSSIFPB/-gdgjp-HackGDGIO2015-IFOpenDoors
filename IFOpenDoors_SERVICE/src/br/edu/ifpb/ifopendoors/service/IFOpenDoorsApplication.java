@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
+import org.jboss.resteasy.plugins.interceptors.CorsFilter;
+
 import br.edu.ifpb.ifopendoors.controller.DoorController;
 import br.edu.ifpb.ifopendoors.controller.GateController;
 import br.edu.ifpb.ifopendoors.controller.PersonController;
@@ -17,6 +19,13 @@ public class IFOpenDoorsApplication extends Application {
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 
 	public IFOpenDoorsApplication() {
+		
+		CorsFilter filter = new CorsFilter();
+		filter.getAllowedOrigins().add("*");
+		filter.setAllowedMethods("POST, GET, DELETE, PUT, OPTIONS");
+		filter.setAllowedHeaders("Content-Type, Authorization");
+		
+		this.singletons.add(filter);
 		
 		// ADD YOUR RESTFUL RESOURCES HERE
 		this.singletons.add(new RoomController());
