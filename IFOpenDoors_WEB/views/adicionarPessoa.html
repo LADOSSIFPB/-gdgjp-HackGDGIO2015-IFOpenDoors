@@ -4,20 +4,36 @@
 <div class="col-md-3"></div>
 
 <div class="col-md-6">
-<form class="well inicio">
+  <form class="well inicio">
+
     <div class="form-group">
       <label>Nome Completo</label>
       <input type="text" class="form-control" placeholder="Fulano da Silva" ng-model="pessoa.name">
+    </div>
 
+    <div class="form-group">
       <label>CPF</label>
       <input type="text" class="form-control" placeholder="xxx.xxx.xxx-xx" ng-change="cpf(pessoa.cpf)" ng-model="pessoa.cpf">
+    </div>
 
+    <div class="form-group">
       <label>Email</label>
       <input type="email" class="form-control" placeholder="nome@ifpb.edu" ng-model="pessoa.email">
+    </div>
 
+    <div class="form-group">
+      <label>Tipo</label>
+      <select class="form-control" ng-model="pessoa.role">
+        <option ng-repeat="role in roles" ng-value="role.id">{{role.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
       <label>Senha do Usuário</label>
       <input type="password" class="form-control" placeholder= "Mínimo 6 digitos" ng-model="pessoa.password" ng-pattern ="/\d{6}/">
+    </div>
 
+    <div class="form-group">
       <label>Repita a Senha</label>
       <input type="password" class="form-control" placeholder= "Mínimo 6 digitos" ng-model="senhaVer" ng-pattern ="/\d{6}/">
     </div>

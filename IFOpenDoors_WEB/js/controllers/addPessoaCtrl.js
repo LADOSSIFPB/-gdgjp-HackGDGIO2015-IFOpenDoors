@@ -14,6 +14,14 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
     $scope.pessoa.cpf = cpf;
   };
 
+  var carregarRoles = function () {
+    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/role/all").success(function (data) {
+      $scope.roles = data;
+    }).error(function (data, status) {
+      $scope.message = "Aconteceu um problema: " + data;
+    });
+  };
+
   $scope.addPessoa = function (pessoa) {
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/person/insert", pessoa).success(function (data) {
       delete $scope.pessoa;
@@ -27,4 +35,6 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
     }
     return true;
   };
+
+  carregarRoles();
 });

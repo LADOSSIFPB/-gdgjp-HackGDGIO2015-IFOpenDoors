@@ -22,7 +22,7 @@ public class Role {
 	private Integer id; 
 
 	@Column(name = "nm_role")
-	private String nome;
+	private String name;
 
 	@XmlElement
 	public Integer getId() {
@@ -34,24 +34,24 @@ public class Role {
 	}
 
 	@XmlElement
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	@Override
 	public String toString() {
-		return "Role [id=" + id +", nome=" + nome + "]";
+		return "Role [id=" + id +", name=" + name + "]";
 	}
 	
 	@Override
 	public boolean equals(Object value) {
 		
 		if (value instanceof String) {
-			return this.nome.equals(value);
+			return this.name.equals(value);
 		}
 		
 		if (value instanceof Role) {
@@ -59,7 +59,7 @@ public class Role {
 			Role role = (Role) value;
 			
 			if (this.id == role.getId() 
-					&& this.nome.equals(role.getNome())) {
+					&& this.name.equals(role.getName())) {
 				return true;
 			}
 		}

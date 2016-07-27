@@ -10,6 +10,7 @@ import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 import br.edu.ifpb.ifopendoors.controller.DoorController;
 import br.edu.ifpb.ifopendoors.controller.GateController;
 import br.edu.ifpb.ifopendoors.controller.PersonController;
+import br.edu.ifpb.ifopendoors.controller.RoleController;
 import br.edu.ifpb.ifopendoors.controller.RoomController;
 import br.edu.ifpb.ifopendoors.controller.TypeRoomController;
 
@@ -34,6 +35,7 @@ public class IFOpenDoorsApplication extends Application {
 		this.singletons.add(new DoorController());
 		this.singletons.add(new TypeRoomController());
 		this.singletons.add(new GateController());
+		this.singletons.add(new RoleController());
 	}
 
 	public Set<Class<?>> getClasses() {
