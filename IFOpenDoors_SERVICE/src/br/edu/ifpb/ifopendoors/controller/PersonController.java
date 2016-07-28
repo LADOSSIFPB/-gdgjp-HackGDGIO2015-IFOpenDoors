@@ -18,9 +18,11 @@ import org.apache.logging.log4j.Logger;
 
 import br.edu.ifpb.ifopendoors.dao.LoginDAO;
 import br.edu.ifpb.ifopendoors.dao.PersonDAO;
+import br.edu.ifpb.ifopendoors.dao.RoleDAO;
 import br.edu.ifpb.ifopendoors.entity.Erro;
 import br.edu.ifpb.ifopendoors.entity.Login;
 import br.edu.ifpb.ifopendoors.entity.Person;
+import br.edu.ifpb.ifopendoors.entity.Role;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.util.BancoUtil;
 import br.edu.ifpb.ifopendoors.validatio.Validate;
@@ -57,14 +59,22 @@ public class PersonController {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 		
-		try {			
+		try {
 			
-			Integer idPerson = PersonDAO.getInstance().insert(person);
+			Role role = RoleDAO.getInstance().getById(person.getRole().getId());
 			
-			if (idPerson != BancoUtil.IDVAZIO) {
+			if(role!=null){
+				person.setRole(role);
+				
+				Integer idPerson = PersonDAO.getInstance().insert(person);
+				
+				if (idPerson != BancoUtil.IDVAZIO) {
 
-				builder.status(Response.Status.OK);
-				builder.entity(person);
+					builder.status(Response.Status.OK);
+					builder.entity(person);
+				}
+			} else{
+				//TRATAR
 			}
 		
 		} catch (SQLExceptionIFOpenDoors qme) {

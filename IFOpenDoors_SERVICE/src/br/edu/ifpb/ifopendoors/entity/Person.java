@@ -1,7 +1,5 @@
 package br.edu.ifpb.ifopendoors.entity;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -41,12 +38,9 @@ public class Person {
 	@Column(name="nr_key")
 	private String key;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinTable(name = "tb_pessoa_role", 
-		joinColumns = @JoinColumn(name = "fk_id_pessoa"), 
-		inverseJoinColumns = @JoinColumn(name = "fk_id_role")
-	)
-	private List<Role> roles;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_id_role", referencedColumnName="id_role", nullable=false)
+	private Role role;
 
 	@XmlElement
 	public int getId() {
@@ -103,11 +97,11 @@ public class Person {
 	}
 	
 	@XmlElement
-	public List<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }
