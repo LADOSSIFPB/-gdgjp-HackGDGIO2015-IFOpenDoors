@@ -1,6 +1,10 @@
-angular.module("IfOpenDoorsApp").controller("addSalaCtrl", function ($scope, $http) {
+angular.module("IfOpenDoorsApp").controller("addSalaCtrl", function ($scope, $http, $rootScope) {
   $scope.escolha = {};
-  $scope.app = "Adicionar Salas";
+  $rootScope.app = "Adicionar Salas";
+
+  if(!$rootScope.logado){
+    $location.url("/");
+  }
 
   var carregarPortas = function () {
     $http.get("http://localhost:8080/IFOpenDoors_SERVICE/door/all").success(function (data) {

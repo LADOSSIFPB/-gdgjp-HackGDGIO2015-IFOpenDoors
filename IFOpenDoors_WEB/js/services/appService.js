@@ -1,16 +1,20 @@
-angular.module("IfOpenDoorsApp").factory("appAPI", function () {
-	var _logado = false;
+angular.module("IfOpenDoorsApp").factory("appAPI", function ($cookies, $location) {
 
 	var _isLogged = function () {
-		return _logado;
+		if ($cookies.getObject('user')) {
+			return true;
+		} else {
+			return false;
+		}
 	};
 
-	var _login = function () {
-		return _logado = true;
+	var _login = function (person) {
+		$cookies.putObject('user', person);
 	};
 
 	var _logout = function () {
-		return _logado = false;
+		$cookies.remove("user");
+		$location.url("/");
 	};
 
 	return {

@@ -1,5 +1,10 @@
-angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $http) {
+angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $http, $rootScope, $location, $cookies) {
+  $rootScope.app = "Adicionar Pessoa"
   $scope.escolha = {};
+
+  if(!$rootScope.logado){
+    $location.url("/");
+  }
 
   $scope.cpf= function(cpf) {
     cpf = cpf.replace(/[^0-9]/g,'')
@@ -17,12 +22,17 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
   var carregarRoles = function () {
     $http.get("http://localhost:8080/IFOpenDoors_SERVICE/role/all").success(function (data) {
       $scope.roles = data;
+      console.log(data);
     }).error(function (data, status) {
       $scope.message = "Aconteceu um problema: " + data;
     });
   };
 
   $scope.addPessoa = function (pessoa) {
+    pessoa.roles = [pessoa.roles]
+
+    console.log(pessoa);
+
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/person/insert", pessoa).success(function (data) {
       delete $scope.pessoa;
       delete $scope.senhaVer;
