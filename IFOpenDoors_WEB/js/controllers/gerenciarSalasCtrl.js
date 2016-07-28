@@ -1,7 +1,9 @@
-angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope) {
+angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope, $location) {
   $scope.escolha = {};
   $scope.salas = [];
   $rootScope.app = "Gerenciar Salas";
+  $rootScope.show = false;
+  $rootScope.shows = '';
 
   if(!$rootScope.logado){
     $location.url("/");

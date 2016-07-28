@@ -1,6 +1,8 @@
 angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $http, $rootScope, $location, $cookies) {
   $rootScope.app = "Adicionar Pessoa"
   $scope.escolha = {};
+  $rootScope.show = false;
+  $rootScope.shows = '';
 
   if(!$rootScope.logado){
     $location.url("/");

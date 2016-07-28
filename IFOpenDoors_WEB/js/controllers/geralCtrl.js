@@ -5,14 +5,15 @@ angular.module("IfOpenDoorsApp").controller("geralCtrl", function ($scope, $http
   $scope.pessoasOpcaos = [{name:'Adicionar', link:'AddPessoa'}];
 
   $scope.barra = function () {
-    $scope.show = !$scope.show;
+    $rootScope.show = !$scope.show;
+    $rootScope.shows = '';
   };
 
   $scope.salasOptions = function () {
-    $scope.shows = 'sala';
+    $rootScope.shows = 'sala';
   };
 
   $scope.pessoasOptions = function () {
-    $scope.shows = 'pessoa';
+    $rootScope.shows = 'pessoa';
   };
 });
