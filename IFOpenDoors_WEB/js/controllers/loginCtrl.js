@@ -10,6 +10,19 @@ angular.module("IfOpenDoorsApp").controller("loginCtrl", function ($scope, $http
       appAPI.login(data);
       $rootScope.logado = appAPI.isLogged();
 
+      for(var i=0;i<data.roles.length;i++){
+        //Professor
+        if(data.roles[i].id==1){
+          $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'}, {name:'Adicionar', link:'AddSala'});
+          $rootScope.pessoasOpcaos.push({name:'Adicionar', link:'AddPessoa'});
+        }
+
+        //Aluno
+        if(data.roles[i].id==2){
+          $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'});
+        }
+      }
+
       $location.url("Salas");
     }).error( function (data, status, headers, config) {
       if(status==401){
