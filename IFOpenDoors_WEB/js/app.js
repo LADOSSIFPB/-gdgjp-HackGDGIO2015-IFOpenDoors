@@ -46,6 +46,8 @@ app.directive('tooltip', function(){
                 // on mouseleave
                 $(element).tooltip('hide');
             });
+
+            $(element).tooltip('hide');
 		}
 	};
 });
