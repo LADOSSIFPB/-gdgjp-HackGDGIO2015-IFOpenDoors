@@ -8,7 +8,8 @@
 
       <div class="input-group input-group-lg">
         <input type="text" ng-model="busca" class="form-control" placeholder="Digite nome, tipo ou descrição do que você procura"></input>
-        <a class="input-group-addon glyphicon glyphicon-plus addSala" title="Adicionar Nova Sala" tooltip data-placement="right" data-toggle="tooltip" ng-href="#/AddSala"></a>
+        <a class="input-group-addon glyphicon glyphicon-plus addSala" title="Adicionar Nova Sala" tooltip data-placement="right" data-toggle="tooltip" ng-href="#/AddSala" ng-if="role=='Professor'"></a>
+        <span class="input-group-addon glyphicon glyphicon-search" ng-if="role=='Aluno'"></span>
       </div>
 
       <div class="col-sm-6 col-md-4" ng-repeat="sala in salas | filter:busca">
