@@ -25,6 +25,10 @@
     <span class="glyphicon glyphicon-menu-hamburger"></span>
   </div>
 
+  <div class="btn btn-link logoutBtn" ng-click="logout()" ng-if="logado">
+    <span class="glyphicon glyphicon-off"></span>
+  </div>
+
   <div class="barraCima">
     <center><h4><b class="nomeFora">{{app}}</b></h4></center>      
   </div>
@@ -36,9 +40,9 @@
       <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
       <p></p>
       <ul class="nav nav-pills nav-stacked">
-        <li ng-if="salasOpcaos.length != 0"><a ng-click="salasOptions()"><div class="prin">Salas</div></a></li>
+        <li ng-if="salasOpcaos.length != 0"><a ng-click="salasOptions()"><div class="prin"><span class="glyphicon glyphicon-oil"></span>  Salas</div></a></li>
         <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top">{{opcao.name}}</div></a></li>
-        <li ng-if="pessoasOpcaos.length != 0"><a ng-click="pessoasOptions()"><div class="prin">Pessoas</div></a></li>
+        <li ng-if="pessoasOpcaos.length != 0"><a ng-click="pessoasOptions()"><div class="prin"><span class="glyphicon glyphicon-user"></span>  Pessoas</div></a></li>
         <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top">{{opcao.name}}</div></a></li>
       </ul>
     </nav>

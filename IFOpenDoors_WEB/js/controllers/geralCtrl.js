@@ -9,6 +9,10 @@ angular.module("IfOpenDoorsApp").controller("geralCtrl", function ($scope, $http
     $rootScope.shows = '';
   };
 
+  $scope.logout = function () {
+    appAPI.logout();
+  };
+
   $scope.salasOptions = function () {
     $rootScope.shows = 'sala';
   };

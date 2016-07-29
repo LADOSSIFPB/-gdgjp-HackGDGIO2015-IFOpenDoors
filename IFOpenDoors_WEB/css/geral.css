@@ -28,6 +28,19 @@ div{
   color: white;
 }
 
+.logoutBtn,
+.logoutBtn:hover,
+.logoutBtn:focus,
+.logoutBtn:active {
+  position: fixed !important;
+  right: 10px;
+  top: 13px;
+  margin-top: 0px;
+  font-size: 25;
+  color: white;
+  z-index:13;
+}
+
 .fora, .dentro{
   position: fixed !important;
   left: 10px;
