@@ -9,3 +9,8 @@
 .input-group{
   margin-bottom: 50px;
 }
+
+.addSala:link,
+.addSala:visited{
+	text-decoration: none;
+}

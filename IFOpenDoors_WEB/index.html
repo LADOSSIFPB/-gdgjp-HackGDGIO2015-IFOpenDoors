@@ -21,11 +21,11 @@
 </head>
 <body ng-controller="geralCtrl">
 
-  <div class="btn btn-link" ng-click="barra()" ng-class="{'dentro': show, 'fora': !show}" ng-if="logado">
+  <div class="btn btn-link" ng-click="barra()" ng-class="{'dentro': show, 'fora': !show}" ng-if="logado" title="Ferramentas" tooltip data-placement="right" data-toggle="tooltip">
     <span class="glyphicon glyphicon-menu-hamburger"></span>
   </div>
 
-  <div class="btn btn-link logoutBtn" ng-click="logout()" ng-if="logado">
+  <div class="btn btn-link logoutBtn" ng-click="logout()" ng-if="logado" title="Logout" tooltip data-placement="left" data-toggle="tooltip">
     <span class="glyphicon glyphicon-off"></span>
   </div>
 

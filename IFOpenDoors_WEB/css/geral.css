@@ -38,7 +38,7 @@ div{
   margin-top: 0px;
   font-size: 25;
   color: white;
-  z-index:13;
+  z-index:12;
 }
 
 .fora, .dentro{
@@ -47,7 +47,7 @@ div{
   top: 13px;
   margin-top: 0px;
   font-size: 25;
-  z-index:13;
+  z-index:17;
 }
 
 .fora,
@@ -92,7 +92,7 @@ div{
   left:0px;
   top:0px;
   padding-top: 70px;
-  z-index:12;
+  z-index:16;
 }
 
 .prin{
@@ -113,7 +113,7 @@ div{
   position: fixed;
   top:0;
   left:0;
-  z-index:11;
+  z-index:15;
   background-color:#000;
   width:100%;
   height:100%;

@@ -8,8 +8,8 @@
 
       <div class="input-group input-group-lg">
         <input type="text" ng-model="busca" class="form-control" placeholder="Digite nome, tipo ou descrição do que você procura"></input>
-        <span class="input-group-addon glyphicon glyphicon-search"></span>
-      </div>   
+        <a class="input-group-addon glyphicon glyphicon-plus addSala" title="Adicionar Nova Sala" tooltip data-placement="right" data-toggle="tooltip" ng-href="#/AddSala"></a>
+      </div>
 
       <div class="col-sm-6 col-md-4" ng-repeat="sala in salas | filter:busca">
         <div class="panel"  ng-class="{'panel-success': !sala.isOpen, 'panel-danger': sala.isOpen}">

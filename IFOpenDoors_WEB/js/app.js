@@ -1,6 +1,5 @@
 var app = angular.module("IfOpenDoorsApp", ['ngRoute', 'ngCookies']);
 
-
 app.config(['$routeProvider',function($routeProvider) {
 	$routeProvider.
 	when('/', {
@@ -23,3 +22,30 @@ app.config(['$routeProvider',function($routeProvider) {
 		redirectTo: '/'
 	});
 }]);
+
+app.directive('tooltip', function(){
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs){
+			if(scope.show){
+				$(element).tooltip('hide');
+			}
+			else{
+				$(element).tooltip('show');
+			}
+
+			$(element).hover(function(){
+                // on mouseenter
+                if(scope.show){
+                	$(element).tooltip('hide');
+                }
+                else{
+                	$(element).tooltip('show');
+                }
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+		}
+	};
+});
