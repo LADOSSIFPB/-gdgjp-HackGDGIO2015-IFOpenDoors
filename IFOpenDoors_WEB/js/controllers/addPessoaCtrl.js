@@ -7,6 +7,9 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
   if(!$rootScope.logado){
     $location.url("/");
   }
+  if($rootScope.role!="Professor"){
+    $location.url("/Salas");
+  }
 
   $scope.cpf= function(cpf) {
     cpf = cpf.replace(/[^0-9]/g,'')

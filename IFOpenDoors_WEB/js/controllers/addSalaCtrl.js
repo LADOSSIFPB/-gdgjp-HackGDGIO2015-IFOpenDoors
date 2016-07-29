@@ -7,6 +7,9 @@ angular.module("IfOpenDoorsApp").controller("addSalaCtrl", function ($scope, $ht
   if(!$rootScope.logado){
     $location.url("/");
   }
+  if($rootScope.role!="Professor"){
+    $location.url("/Salas");
+  }
 
   var carregarPortas = function () {
     $http.get("http://localhost:8080/IFOpenDoors_SERVICE/door/all").success(function (data) {

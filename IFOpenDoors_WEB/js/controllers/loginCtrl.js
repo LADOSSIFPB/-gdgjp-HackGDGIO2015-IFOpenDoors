@@ -10,12 +10,14 @@ angular.module("IfOpenDoorsApp").controller("loginCtrl", function ($scope, $http
       appAPI.login(data);
       $rootScope.logado = appAPI.isLogged();
 
-      if(data.role.name=="Professor"){
+      if(data.role.name == "Professor"){
+        $rootScope.role = "Professor";
         $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'}, {name:'Adicionar', link:'AddSala'});
         $rootScope.pessoasOpcaos.push({name:'Adicionar', link:'AddPessoa'});
       }
 
-      if(data.role.name=="Aluno"){
+      if(data.role.name == "Aluno"){
+        $rootScope.role = "Aluno";
         $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'});
       }
 
