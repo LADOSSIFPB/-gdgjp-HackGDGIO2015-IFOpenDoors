@@ -34,8 +34,6 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
   };
 
   $scope.addPessoa = function (pessoa) {
-    pessoa.roles = [pessoa.roles]
-
     console.log(pessoa);
 
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/person/insert", pessoa).success(function (data) {
