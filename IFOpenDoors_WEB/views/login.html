@@ -1,8 +1,8 @@
 <link href="css/login.css" rel="stylesheet">
 
-<div class="alert alert-danger alert-dismissible" role="alert" ng-show="UNAUTHORIZED">
+<div class="alert alert-danger alert-dismissible" role="alert" ng-show="ERROR.ative">
   <button type="button" class="close" aria-label="Close" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></button>
-  <strong>Acesso Negado!</strong> Email ou senha incorreto.
+  <span ng-bind-html="ERROR.data"></span>
 </div>
 
 <div class="row">

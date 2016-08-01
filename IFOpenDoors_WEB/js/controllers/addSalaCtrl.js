@@ -1,6 +1,6 @@
 angular.module("IfOpenDoorsApp").controller("addSalaCtrl", function ($scope, $http, $rootScope, $location) {
   $scope.escolha = {};
-  $rootScope.app = "Adicionar Salas";
+  $rootScope.app = "Adicionar Sala";
   $rootScope.show = false;
   $rootScope.shows = '';
 

@@ -1,4 +1,4 @@
-var app = angular.module("IfOpenDoorsApp", ['ngRoute', 'ngCookies']);
+var app = angular.module("IfOpenDoorsApp", ['ngRoute', 'ngCookies', 'ngSanitize']);
 
 app.config(['$routeProvider',function($routeProvider) {
 	$routeProvider.

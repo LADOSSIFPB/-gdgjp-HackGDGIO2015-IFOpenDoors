@@ -11,6 +11,10 @@
 }
 
 .addSala:link,
-.addSala:visited{
+.addSala:visited,
+.addSala:hover,
+.addSala:focus,
+.addSala:active{
 	text-decoration: none;
+	color: #555;
 }

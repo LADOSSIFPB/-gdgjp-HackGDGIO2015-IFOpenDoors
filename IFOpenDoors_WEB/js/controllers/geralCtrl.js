@@ -1,5 +1,5 @@
 angular.module("IfOpenDoorsApp").controller("geralCtrl", function ($scope, $http, appAPI, $rootScope) {
-  $scope.app = "IfOpenDoors";
+  $rootScope.app = "IfOpenDoors";
   $rootScope.logado = false;
   $rootScope.salasOpcaos = [];
   $rootScope.pessoasOpcaos = [];
