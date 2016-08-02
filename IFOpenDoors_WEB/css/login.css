@@ -1,9 +1,10 @@
 .jumbotron{
-  margin-top: 110px;
+  margin-top: 130px;
   margin-bottom: 90px;
-  margin-right: auto;
-  margin-left: auto;
-  background-color: #4e83b1; 
+  width: 450px;
+  margin-left: -25px;
+
+  background-color: #3d668a;
 }
 
 .alert{
@@ -15,4 +16,14 @@
 
 .login{
   margin-top: 40px;
+}
+
+.entrar{
+  color: black;
+  color: #e6e7e8;
+  font-size: 40px;
+}
+
+.email{
+  margin-top: 50px;
 }

@@ -2,6 +2,7 @@ body {
   background-color: #eeeeee;
   width: 100%;
   height: 100%;
+  font-family: CaviarDreams;
 }
 
 div{
@@ -18,7 +19,7 @@ div{
   position: fixed !important;
   z-index:11;
   width: 100%;
-  background-color: #4e83b1;
+  background-color: #3d668a;
   top: 0px;
   margin-right: 0px;
   margin-left: 0px;
@@ -75,7 +76,7 @@ div{
 .rodape{
   position: fixed !important;
   z-index: 2;
-  background-color: #4e83b1;
+  background-color: #3d668a;
   width: 100%;
   bottom: 0px;
   right: 0px;
@@ -134,4 +135,9 @@ div{
 .nav-pills>li>a:focus>div,
 .nav-pills>li>a:active>div {
   color: #4e83b1;
+}
+
+@font-face {
+ font-family: CaviarDreams;
+ src: url(../fonts/caviar_dreams/CaviarDreams.ttf);
 }
