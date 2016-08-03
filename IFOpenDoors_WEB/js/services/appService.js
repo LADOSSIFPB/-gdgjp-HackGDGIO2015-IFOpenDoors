@@ -17,9 +17,16 @@ angular.module("IfOpenDoorsApp").factory("appAPI", function ($cookies, $location
 		$location.url("/");
 	};
 
+	var _getRole = function () {
+		var person = $cookies.getObject('user');
+		
+		return person.role.name;
+	};
+
 	return {
 		isLogged: _isLogged,
 		login: _login,
-		logout: _logout
+		logout: _logout,
+		getRole:_getRole
 	};
 });

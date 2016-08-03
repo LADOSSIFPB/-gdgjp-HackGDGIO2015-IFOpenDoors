@@ -7,13 +7,6 @@
   background-color: #1c2f40;
 }
 
-.alert{
-  position: fixed !important;
-  margin-top: 80px;
-  right: 0px;
-  z-index:11;
-}
-
 .login{
   margin-top: 40px;
 }

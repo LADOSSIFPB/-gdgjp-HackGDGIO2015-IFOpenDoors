@@ -1,15 +1,16 @@
-angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $http, $rootScope, $location, $cookies) {
+angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $http, $rootScope, $location, $cookies, appAPI) {
   $rootScope.app = "Adicionar Pessoa"
   $scope.escolha = {};
   $rootScope.show = false;
   $rootScope.shows = '';
+  $rootScope.logado = appAPI.isLogged();
 
-  if(!$rootScope.logado){
+  if(!$rootScope.logado)
     $location.url("/");
-  }
-  if($rootScope.role!="Professor"){
+  if(appAPI.getRole()!="Professor")
     $location.url("/Salas");
-  }
+
+  $rootScope.setRoleInBar();
 
   $scope.cpf= function(cpf) {
     cpf = cpf.replace(/[^0-9]/g,'')
@@ -27,9 +28,10 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
   var carregarRoles = function () {
     $http.get("http://localhost:8080/IFOpenDoors_SERVICE/role/all").success(function (data) {
       $scope.roles = data;
-      console.log(data);
     }).error(function (data, status) {
-      $scope.message = "Aconteceu um problema: " + data;
+      dataError = "<strong>Ocorreu algum problema ao carregar os tipos de Pessoa!</strong> Por favor tente novamente mais tarde.";
+
+      $rootScope.alertERROR(dataError);
     });
   };
 
@@ -39,6 +41,18 @@ angular.module("IfOpenDoorsApp").controller("addPessoaCtrl", function ($scope, $
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/person/insert", pessoa).success(function (data) {
       delete $scope.pessoa;
       delete $scope.senhaVer;
+
+      dataSucess = "<strong>Pessoa adcionada com sucesso!</strong>";
+      var button ={
+        data:"Adicionar outra",
+        location:"AddPessoa"
+      };
+
+      $rootScope.alertSUCESS(dataSucess, button);
+    }).error(function (data, status) {
+      dataError = "<strong>Ocorreu algum problema ao adicionar Pessoa!</strong> Por favor tente novamente mais tarde.";
+
+      $rootScope.alertERROR(dataError);
     });
   };
 

@@ -1,59 +1,34 @@
-angular.module("IfOpenDoorsApp").controller("loginCtrl", function ($scope, $http, $location, appAPI, $rootScope, $cookies, $sce) {
-	$scope.ERROR = {
-    ative:false,
-    data:""
-  };
-
+angular.module("IfOpenDoorsApp").controller("loginCtrl", function ($scope, $http, $location, appAPI, $rootScope, $cookies, $sce, $window) {
   $rootScope.app = "IfOpenDoors";
   $rootScope.logado = appAPI.isLogged();
 
-  $scope.setRoleInBar = function(data){
-    $rootScope.salasOpcaos = [];
-    $rootScope.pessoasOpcaos = [];
-
-    if(data.role.name == "Professor"){
-      $rootScope.role = "Professor";
-      $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'}, {name:'Adicionar', link:'AddSala'});
-      $rootScope.pessoasOpcaos.push({name:'Adicionar', link:'AddPessoa'});
-    }
-
-    if(data.role.name == "Aluno"){
-      $rootScope.role = "Aluno";
-      $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'});
-    }
-  }
-
-  if($rootScope.logado){
-    $scope.setRoleInBar($cookies.getObject('user'));
-    $location.url("/Salas");
-  }
-
-  $scope.toTrustedHTML = function(html){
-    return $sce.trustAsHtml( html );
+  if(appAPI.isLogged()){
+    $rootScope.setRoleInBar();
+    $window.history.back();
   }
 
   $scope.loginValidation = function (login) {
     $http.post("http://localhost:8080/IFOpenDoors_SERVICE/person/login", login).success(function (data) {
-      $scope.ERROR.ative = false;
-      $scope.ERROR.data = "";
+      $rootScope.ERROR.ative = false;
+      $rootScope.ERROR.data = "";
 
       appAPI.login(data);
       $rootScope.logado = appAPI.isLogged();
 
-      $scope.setRoleInBar(data);
+      $rootScope.setRoleInBar();
 
       $location.url("Salas");
     }).error( function (data, status, headers, config) {
-      if(status==401)
-        $scope.ERROR.data = "<strong>Acesso Negado!</strong> Email ou senha incorreto.";
-      else
-        $scope.ERROR.data = "<strong>Ocorreu algum problema!</strong> Por favor tente novamente mais tarde.";
+      if(status==401){
+        data = "<strong>Acesso Negado!</strong> Email ou senha incorreto.";
 
-      $scope.ERROR.ative = true;
+        $rootScope.alertERROR(data);
+      }
+      else{
+        data = "<strong>Ocorreu algum problema!</strong> Por favor tente novamente mais tarde.";
+
+        $rootScope.alertERROR(data);
+      }
     });
-  };
-
-  $scope.closeAlert = function () {
-    $scope.ERROR.ative = false;
   };
 });

@@ -1,13 +1,16 @@
-angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope, $location) {
+angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope, $location, appAPI) {
   $scope.escolha = {};
   $scope.salas = [];
   $rootScope.app = "Gerenciar Salas";
   $rootScope.show = false;
   $rootScope.shows = '';
 
-  if(!$rootScope.logado){
+  if(!$rootScope.logado)
     $location.url("/");
-  }
+  if(appAPI.getRole()!="Professor")
+    $location.url("/Salas");
+
+  $rootScope.setRoleInBar();
 
   $scope.carregarSalas = function () {
     var isOpen = function (sala) {

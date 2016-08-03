@@ -15,6 +15,17 @@ div{
   margin-bottom: 35%;
 }
 
+.alert{
+  position: fixed !important;
+  margin-top: 80px;
+  right: 0px;
+  z-index:11;
+}
+
+.botaoAlerta{
+  float:right;
+}
+
 .barraCima{
   position: fixed !important;
   z-index:11;
