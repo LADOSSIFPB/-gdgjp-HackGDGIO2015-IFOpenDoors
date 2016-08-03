@@ -75,7 +75,7 @@ div{
 .dentro:hover,
 .dentro:focus,
 .dentro:active {
-  color: #4e83b1;
+  color: #1c2f40;
 }
 
 .nomeFora{
@@ -91,9 +91,12 @@ div{
   background-color: white;
   bottom: 0px;
   left:0px;
-  top:0px;
-  padding-top: 70px;
+  top:-5px;
   z-index:16;
+}
+
+.roleBarra{
+  margin-bottom: 50px;
 }
 
 .prin{
@@ -126,7 +129,7 @@ div{
 .nav-pills>li>a:focus,
 .nav-pills>li>a:active {
   background-color: white;
-  border-left: 3px solid #4e83b1;
+  border-left: 3px solid #1c2f40;
   margin-left: 1px;
   border-radius: 0;
 }
@@ -134,7 +137,7 @@ div{
 .nav-pills>li>a:hover>div,
 .nav-pills>li>a:focus>div,
 .nav-pills>li>a:active>div {
-  color: #4e83b1;
+  color: #2e4e69;
 }
 
 @font-face {

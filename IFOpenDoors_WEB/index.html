@@ -38,13 +38,13 @@
     <div class="ofusca" ng-click="barra()"></div>
 
     <nav class="affix barra">
-      <center><img width="80px" height="80px" alt="Brand" src="img/logoTT.png"></center>
+      <center><h2 class="roleBarra">{{role}}</h2></center>
       <p></p>
       <ul class="nav nav-pills nav-stacked">
-        <li ng-if="salasOpcaos.length != 0"><a ng-click="salasOptions()"><div class="prin"><span class="glyphicon glyphicon-oil"></span>  Salas</div></a></li>
-        <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top">{{opcao.name}}</div></a></li>
-        <li ng-if="pessoasOpcaos.length != 0"><a ng-click="pessoasOptions()"><div class="prin"><span class="glyphicon glyphicon-user"></span>  Pessoas</div></a></li>
-        <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top">{{opcao.name}}</div></a></li>
+        <li ng-if="salasOpcaos.length != 0"><a ng-click="salasOptions()"><div class="prin"><h4><span class="glyphicon glyphicon-oil"></span>  Salas</h4></div></a></li>
+        <li ng-show="shows=='sala'" ng-repeat="opcao in salasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top"><h5>{{opcao.name}}</h5></div></a></li>
+        <li ng-if="pessoasOpcaos.length != 0"><a ng-click="pessoasOptions()"><div class="prin"><h4><span class="glyphicon glyphicon-user"></span>  Pessoas</h4></div></a></li>
+        <li ng-show="shows=='pessoa'" ng-repeat="opcao in pessoasOpcaos"><a ng-href="#/{{opcao.link}}"><div class="top"><h5>{{opcao.name}}</h5></div></a></li>
       </ul>
     </nav>
   </div>

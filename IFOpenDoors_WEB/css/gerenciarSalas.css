@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.inicio{
+  margin-top: 100px;
+  margin-bottom: 90px;
+}
+
 .panel-heading{
   font-size: 17;
 }
