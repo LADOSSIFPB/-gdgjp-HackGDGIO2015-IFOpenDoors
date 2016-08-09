@@ -10,6 +10,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -93,9 +95,9 @@ public class RoomController {
 				
 				if (idOpen != BancoUtil.IDVAZIO) {
 					
-					//Client client = ClientBuilder.newClient();
-		    		//Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")
-		    		//		.request().get();		    		
+					Client client = ClientBuilder.newClient();
+		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")
+		    				.request().get();		    		
 	
 					builder.status(Response.Status.OK);
 					builder.entity(open);
@@ -157,9 +159,9 @@ public class RoomController {
 					
 					if (idClose != BancoUtil.IDVAZIO) {
 						
-						//Client client = ClientBuilder.newClient();
-			    		//Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
-			    		//		.request().get();		    		
+						Client client = ClientBuilder.newClient();
+			    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/close")
+			    				.request().get();		    		
 		
 						builder.status(Response.Status.OK);
 						builder.entity(close);
