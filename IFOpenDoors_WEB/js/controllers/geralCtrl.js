@@ -25,7 +25,7 @@ angular.module("IfOpenDoorsApp").controller("geralCtrl", function ($scope, $http
 
     if(data.role.name == "Professor"){
       $rootScope.role = "Professor";
-      $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'}, {name:'Adicionar', link:'AddSala'});
+      $rootScope.salasOpcaos.push({name:'Gerenciar', link:'Salas'}, {name:'Adicionar', link:'AddSala'},{name:'Dispositivos', link:'ListagemEsp'});
       $rootScope.pessoasOpcaos.push({name:'Adicionar', link:'AddPessoa'});
     }
 
