@@ -14,6 +14,12 @@ app.config(['$routeProvider',function($routeProvider) {
 		templateUrl : 'views/adiconarSala.html',
 		controller     : 'addSalaCtrl',
 	}).
+
+	when('/ListagemEsp', {
+		templateUrl : 'views/ListagemEsp.html',
+		controller     : 'ListagemEspCtrl',
+	}).
+
 	when('/AddPessoa', {
 		templateUrl : 'views/adicionarPessoa.html',
 		controller     : 'addPessoaCtrl',
