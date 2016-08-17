@@ -13,7 +13,7 @@ angular.module("IfOpenDoorsApp").controller("addSalaCtrl", function ($scope, $ht
   $rootScope.setRoleInBar();
 
   var carregarPortas = function () {
-    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/door/all").success(function (data) {
+    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/door/allWithoutRoom").success(function (data) {
       $scope.portas = data;
     }).error(function (data, status) {
       data = "<strong>Ocorreu algum problema ao carregar Portas!</strong> Por favor tente novamente mais tarde.";

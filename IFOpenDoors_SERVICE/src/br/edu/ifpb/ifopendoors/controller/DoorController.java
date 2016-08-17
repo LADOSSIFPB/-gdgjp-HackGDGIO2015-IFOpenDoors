@@ -72,4 +72,16 @@ public class DoorController {
 		
 		return door;
 	}
+	
+	@GET
+	@Path("/allWithoutRoom")
+	@Produces("application/json")
+	public List<Door> getAllWithoutRoom() {
+		
+		List<Door> door = new ArrayList<Door>();
+		
+		door = DoorDAO.getInstance().getAllWithoutRoom();
+		
+		return door;
+	}
 }

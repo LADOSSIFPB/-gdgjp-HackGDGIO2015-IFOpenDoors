@@ -1,14 +1,17 @@
 package br.edu.ifpb.ifopendoors.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.edu.ifpb.ifopendoors.entity.Door;
+import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.hibernate.HibernateUtil;
 
@@ -48,6 +51,24 @@ public class DoorDAO extends AbstractDAO<Integer, Door>{
 		
 		return door;
 	}
+	
+	public List<Door>  getAllWithoutRoom(){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		
+		String hql = "from Door as d"
+				+ " where d.id not in ("
+				+ " 	select r.door.id"
+				+ "		from Room as r"
+				+ ")";
+		
+		Query query = session.createQuery(hql);
+		
+		List<Door> door = new ArrayList<Door>();
+		door = query.list();	
+		
+		return door;
+	}
 
 	@Override
 	public List<Door> getAll() throws SQLExceptionIFOpenDoors {
@@ -58,5 +79,5 @@ public class DoorDAO extends AbstractDAO<Integer, Door>{
 	public int delete(Integer pk) throws SQLExceptionIFOpenDoors {
 		// TODO Auto-generated method stub
 		return 0;
-	}	
+	}
 }

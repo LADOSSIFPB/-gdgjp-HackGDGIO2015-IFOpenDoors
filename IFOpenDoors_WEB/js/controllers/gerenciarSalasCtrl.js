@@ -1,4 +1,4 @@
-angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope, $location, appAPI) {
+angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope, $location, appAPI, $cookies) {
   $scope.escolha = {};
   $scope.salas = [];
   $rootScope.app = "Gerenciar Salas";
@@ -33,7 +33,7 @@ angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($sco
   };
 
   $scope.abrir = function (sala) {
-    requisicao = {person:{id:1},
+    requisicao = {person:$cookies.getObject('user'),
     room:{id:sala}};
 
     $scope.re = requisicao;
