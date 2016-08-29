@@ -41,7 +41,7 @@
             android:layout_height="100dp"
             android:id="@+id/logotipo"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_branco"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp" />
 
@@ -79,7 +79,7 @@
             android:textColor="@color/gelo" />
 
         <Button
-
+            android:id="@+id/ButtonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -104,7 +104,7 @@
 
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
     </LinearLayout>
 
     </LinearLayout>
