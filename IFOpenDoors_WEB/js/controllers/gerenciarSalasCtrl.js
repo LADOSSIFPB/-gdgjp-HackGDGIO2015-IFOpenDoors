@@ -13,11 +13,21 @@ angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($sco
   $rootScope.setRoleInBar();
 
   $scope.carregarSalas = function () {
+  	var isOn = function (sala) {
+      $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOn/"+sala.id).success(function (data) {
+        sala.isOn = data;
+
+        if(!sala.isOn)
+        	sala.isOpen = null;
+
+        $scope.salas.push(sala);
+      })
+    };
+
     var isOpen = function (sala) {
       $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOpen/"+sala.id).success(function (data) {
         sala.isOpen = data;
-
-        $scope.salas.push(sala);
+        isOn(sala);        
       })
     };
 

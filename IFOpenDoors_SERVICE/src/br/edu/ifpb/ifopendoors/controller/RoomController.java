@@ -300,6 +300,45 @@ public class RoomController {
 	}
 	
 	@GET
+	@Path("/isOn/{id}")
+	@Produces("application/json")
+	public Response isOn(@PathParam("id") int idRoom) {
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+
+		try {
+			
+			Room room = RoomDAO.getInstance().getById(idRoom);
+			Door door = DoorDAO.getInstance().getById(room.getDoor().getId());
+			
+			try {
+				Client client = ClientBuilder.newClient();
+	    		Response response = client.target("http://" + door.getIp() + "/isOn")
+	    				.request().get();
+	    		
+	    		if(response.getStatus()==200)
+					builder.entity(true);
+				else
+					builder.entity(false);
+    		}catch (javax.ws.rs.ProcessingException qme) {
+    			builder.entity(false);
+    		}
+    		
+			builder.status(Response.Status.OK);
+		} catch (SQLExceptionIFOpenDoors qme) {
+
+			Erro erro = new Erro();
+			erro.setCodigo(qme.getErrorCode());
+			erro.setMensagem(qme.getMessage());
+
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro);
+		}
+
+		return builder.build();
+	}
+	
+	@GET
 	@Path("/entity")
 	@Produces("application/json")
 	public Response getEntity() {

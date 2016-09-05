@@ -13,7 +13,7 @@
       </div>
 
       <div class="col-sm-6 col-md-4" ng-repeat="sala in salas | filter:busca">
-        <div class="panel"  ng-class="{'panel-success': !sala.isOpen, 'panel-danger': sala.isOpen}">
+        <div class="panel"  ng-class="{'panel-warning' : !sala.isOn, 'panel-success' : !sala.isOpen, 'panel-danger' : sala.isOpen}">
           <div class="panel-heading" >{{sala.tipoSala.name}}</div>
           <img src="img/lab1.png" ng-if="sala.tipoSala.name=='Laboratório'">
           <img src="img/sala.png" ng-if="sala.tipoSala.name=='Sala'">
@@ -22,8 +22,9 @@
             <h5>{{sala.descricao}}</h5>
             <p></p>
             <p>
-              <button href="#" class="btn btn-success btn-block" ng-if="!sala.isOpen" ng-click="abrir(sala.id)">Abrir</button>
-              <button href="#" class="btn btn-danger btn-block" ng-if="sala.isOpen" ng-click="fechar(sala.id)">Fechar</button>
+              <button href="#" class="btn btn-success btn-block" ng-if="!sala.isOpen && sala.isOn" ng-click="abrir(sala.id)">Abrir</button>
+              <button href="#" class="btn btn-danger btn-block" ng-if="sala.isOpen && sala.isOn" ng-click="fechar(sala.id)">Fechar</button>
+              <button href="#" class="btn btn-warning btn-block disabled" ng-if="!sala.isOn">Indisponivel</button>
             </p>
           </div>
         </div>
