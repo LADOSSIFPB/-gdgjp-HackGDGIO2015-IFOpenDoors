@@ -1,21 +1,54 @@
 p = Pin(4, Pin.OUT)
 portaServidorESP = 8080
 
-def open():
-	p.high()
+def open(responseReceived):
 	print('Aberto')
+	p.high()
+	
+	auth = getAuth(responseReceived)
+
+	if not auth:
+		response = Response()
+		response.notAuthorized()
+		return response.build()
+
+	data = ujson.dumps({'key':auth, 'ip':wlan.ifconfig()[0] + ":" + str(portaServidorESP)})
+	data = POST(data, "/IFOpenDoors_SERVICE/door/checkKey", "192.168.0.8", 8080)
+
+	if getCode(data)!=200:
+		response = Response()
+		response.notAuthorized()
+		return response.build()
+
 	response = Response()
 	response.code(200)
 	response.contentType("text/plain")
-	response.data("Ligado")
+	response.data("Aberto")
 	return response.build()
-def close():
-	p.low()
+	
+def close(responseReceived):
 	print('Fechado')
+	p.low()
+	
+	auth = getAuth(responseReceived)
+
+	if not auth:
+		response = Response()
+		response.notAuthorized()
+		return response.build()
+
+	data = ujson.dumps({'key':auth, 'ip':wlan.ifconfig()[0] + ":" + str(portaServidorESP)})
+	data = POST(data, "/IFOpenDoors_SERVICE/door/checkKey", "192.168.0.8", 8080)
+
+	if getCode(data)!=200:
+		response = Response()
+		response.notAuthorized()
+		return response.build()
+		
 	response = Response()
 	response.code(200)
 	response.contentType("text/plain")
-	response.data("Desligado")
+	response.data("Fechado")
 	return response.build()
 def isOn():
 	response = Response()
@@ -38,7 +71,7 @@ while not wlan.isconnected():
 
 data = ujson.dumps({'ip':wlan.ifconfig()[0] + ":" + str(portaServidorESP)})
 
-POST(data, "/IFOpenDoors_SERVICE/door/insert", "192.168.0.8", 8080)
+data = POST(data, "/IFOpenDoors_SERVICE/door/insert", "192.168.0.8", 8080)
 
 p.low()
 
