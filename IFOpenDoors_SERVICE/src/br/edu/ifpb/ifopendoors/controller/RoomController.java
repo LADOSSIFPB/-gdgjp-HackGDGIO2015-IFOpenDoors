@@ -95,9 +95,11 @@ public class RoomController {
 				
 				if (idOpen != BancoUtil.IDVAZIO) {
 					
+					open.getRoom().getDoor().setKey("kasdkas");
+					
 					Client client = ClientBuilder.newClient();
 		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")
-		    				.request().get();		    		
+		    				.request().header("Authorization",open.getRoom().getDoor().getKey()).get();		    		
 	
 					builder.status(Response.Status.OK);
 					builder.entity(open);
@@ -287,6 +289,33 @@ public class RoomController {
 			}else{
 				builder.entity(false);
 			}			
+		} catch (SQLExceptionIFOpenDoors qme) {
+
+			Erro erro = new Erro();
+			erro.setCodigo(qme.getErrorCode());
+			erro.setMensagem(qme.getMessage());
+
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro);
+		}
+
+		return builder.build();
+	}
+	
+	@POST
+	@Path("/checkKey")
+	@Produces("application/json")
+	public Response checkKey(Door doorCheck) {
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+
+		try {
+			
+			Door door = DoorDAO.getInstance().checkKey(doorCheck);
+
+			if(door!=null){
+				builder.status(Response.Status.OK);
+			}
 		} catch (SQLExceptionIFOpenDoors qme) {
 
 			Erro erro = new Erro();

@@ -1,76 +1,76 @@
 angular.module("IfOpenDoorsApp").controller("gerenciarSalasCtrl", function ($scope, $http, $rootScope, $location, appAPI, $cookies) {
-  $scope.escolha = {};
-  $scope.salas = [];
-  $rootScope.app = "Gerenciar Salas";
-  $rootScope.show = false;
-  $rootScope.shows = '';
+	$scope.escolha = {};
+	$scope.salas = [];
+	$rootScope.app = "Gerenciar Salas";
+	$rootScope.show = false;
+	$rootScope.shows = '';
 
-  if(!$rootScope.logado)
-    $location.url("/");
-  if(appAPI.getRole()!="Professor")
-    $location.url("/Salas");
+	if(!$rootScope.logado)
+		$location.url("/");
+	if(appAPI.getRole()!="Professor")
+		$location.url("/Salas");
 
-  $rootScope.setRoleInBar();
+	$rootScope.setRoleInBar();
 
-  $scope.carregarSalas = function () {
-  	var isOn = function (sala) {
-      $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOn/"+sala.id).success(function (data) {
-        sala.isOn = data;
+	$scope.carregarSalas = function () {
+		var isOn = function (sala) {
+			$http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOn/"+sala.id).success(function (data) {
+				sala.isOn = data;
 
-        if(!sala.isOn)
-        	sala.isOpen = null;
+				if(!sala.isOn)
+					sala.isOpen = null;
 
-        $scope.salas.push(sala);
-      })
-    };
+				$scope.salas.push(sala);
+			})
+		};
 
-    var isOpen = function (sala) {
-      $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOpen/"+sala.id).success(function (data) {
-        sala.isOpen = data;
-        isOn(sala);        
-      })
-    };
+		var isOpen = function (sala) {
+			$http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/isOpen/"+sala.id).success(function (data) {
+				sala.isOpen = data;
+				isOn(sala);
+			})
+		};
 
-    var setarAbertura = function (salas) {
-      for (var i = 0; i < salas.length; i++) {
-        isOpen(salas[i]);
-      }
-    };
+		var setarAbertura = function (salas) {
+			for (var i = 0; i < salas.length; i++) {
+				isOpen(salas[i]);
+			}
+		};
 
-    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/all").success(function (data) {
-      setarAbertura(data);
-    })
-  };
+		$http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/all").success(function (data) {
+			setarAbertura(data);
+		})
+	};
 
-  $scope.abrir = function (sala) {
-    requisicao = {person:$cookies.getObject('user'),
-    room:{id:sala}};
+	$scope.abrir = function (sala) {
+		requisicao = {person:$cookies.getObject('user'),
+		room:{id:sala}};
 
-    $scope.re = requisicao;
+		$scope.re = requisicao;
 
-    $http.post("http://localhost:8080/IFOpenDoors_SERVICE/room/open", requisicao).success(function (data) {
-      delete $scope.salas;
+		$http.post("http://localhost:8080/IFOpenDoors_SERVICE/room/open", requisicao).success(function (data) {
+			delete $scope.salas;
 
-      $scope.salas = [];
-      $scope.carregarSalas();
-    });
-  };
+			$scope.salas = [];
+			$scope.carregarSalas();
+		});
+	};
 
-  $scope.fechar = function (idSala) {
-    $http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/close/" + idSala).success(function (data) {
-      delete $scope.salas;
+	$scope.fechar = function (idSala) {
+		$http.get("http://localhost:8080/IFOpenDoors_SERVICE/room/close/" + idSala).success(function (data) {
+			delete $scope.salas;
 
-      $scope.salas = [];
-      $scope.carregarSalas();
-    });
-  };
+			$scope.salas = [];
+			$scope.carregarSalas();
+		});
+	};
 
-  $scope.ok = function (escolha) {
-    if(escolha.porta && escolha.nome && escolha.descricao && escolha.tipo){
-      return true;
-    }
-    return false;
-  };
+	$scope.ok = function (escolha) {
+		if(escolha.porta && escolha.nome && escolha.descricao && escolha.tipo){
+			return true;
+		}
+		return false;
+	};
 
-  $scope.carregarSalas();
+	$scope.carregarSalas();
 });

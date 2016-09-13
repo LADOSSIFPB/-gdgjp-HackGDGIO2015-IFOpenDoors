@@ -12,6 +12,7 @@ import org.hibernate.Session;
 
 import br.edu.ifpb.ifopendoors.entity.Door;
 import br.edu.ifpb.ifopendoors.entity.Open;
+import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 import br.edu.ifpb.ifopendoors.hibernate.HibernateUtil;
 
@@ -51,6 +52,31 @@ public class DoorDAO extends AbstractDAO<Integer, Door>{
 		
 		return door;
 	}
+	
+	public Door checkKey(Door doorCheck) throws SQLExceptionIFOpenDoors {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Door door = null;
+		
+		try {						
+			String hql = "from Door as d"
+					+ " where d.ip = :email"
+					+ " and d.key= :key";
+			
+			Query query = session.createQuery(hql);			
+			query.setParameter("ip", doorCheck.getIp());
+			query.setParameter("key", doorCheck.getKey());
+			
+			door = (Door) query.uniqueResult();
+	        
+		} finally {
+		
+			session.close();
+		}
+		
+		return door;
+	}
+	
 	
 	public List<Door>  getAllWithoutRoom(){
 		

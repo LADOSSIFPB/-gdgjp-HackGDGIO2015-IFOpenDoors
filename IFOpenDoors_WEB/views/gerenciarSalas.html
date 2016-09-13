@@ -3,34 +3,34 @@
 <div class="col-md-3"></div>
 
 <div class="col-md-6">
-  <div class="inicio">
-    <div class="row">
+	<div class="inicio">
+		<div class="row">
 
-      <div class="input-group input-group-lg">
-        <input type="text" ng-model="busca" class="form-control" placeholder="Digite nome, tipo ou descrição do que você procura"></input>
-        <a class="input-group-addon glyphicon glyphicon-plus addSala" title="Adicionar Nova Sala" tooltip data-placement="auto right" data-toggle="tooltip" ng-href="#/AddSala" ng-if="role=='Professor'"></a>
-        <span class="input-group-addon glyphicon glyphicon-search" ng-if="role=='Aluno'"></span>
-      </div>
+			<div class="input-group input-group-lg">
+				<input type="text" ng-model="busca" class="form-control" placeholder="Digite nome, tipo ou descrição do que você procura"></input>
+				<a class="input-group-addon glyphicon glyphicon-plus addSala" title="Adicionar Nova Sala" tooltip data-placement="auto right" data-toggle="tooltip" ng-href="#/AddSala" ng-if="role=='Professor'"></a>
+				<span class="input-group-addon glyphicon glyphicon-search" ng-if="role=='Aluno'"></span>
+			</div>
 
-      <div class="col-sm-6 col-md-4" ng-repeat="sala in salas | filter:busca">
-        <div class="panel"  ng-class="{'panel-warning' : !sala.isOn, 'panel-success' : !sala.isOpen, 'panel-danger' : sala.isOpen}">
-          <div class="panel-heading" >{{sala.tipoSala.name}}</div>
-          <img src="img/lab1.png" ng-if="sala.tipoSala.name=='Laboratório'">
-          <img src="img/sala.png" ng-if="sala.tipoSala.name=='Sala'">
-          <div class="caption">
-            <h3>{{sala.nome}}</h3>
-            <h5>{{sala.descricao}}</h5>
-            <p></p>
-            <p>
-              <button href="#" class="btn btn-success btn-block" ng-if="!sala.isOpen && sala.isOn" ng-click="abrir(sala.id)">Abrir</button>
-              <button href="#" class="btn btn-danger btn-block" ng-if="sala.isOpen && sala.isOn" ng-click="fechar(sala.id)">Fechar</button>
-              <button href="#" class="btn btn-warning btn-block disabled" ng-if="!sala.isOn">Indisponivel</button>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>        
+			<div class="col-sm-6 col-md-4" ng-repeat="sala in salas | filter:busca">
+				<div class="panel"  ng-class="{'panel-warning' : !sala.isOn, 'panel-success' : !sala.isOpen, 'panel-danger' : sala.isOpen}">
+					<div class="panel-heading" >{{sala.tipoSala.name}}</div>
+					<img src="img/lab1.png" ng-if="sala.tipoSala.name=='Laboratório'">
+					<img src="img/sala.png" ng-if="sala.tipoSala.name=='Sala'">
+					<div class="caption">
+						<h3>{{sala.nome}}</h3>
+						<h5>{{sala.descricao}}</h5>
+						<p></p>
+						<p>
+							<button href="#" class="btn btn-success btn-block" ng-if="!sala.isOpen && sala.isOn" ng-click="abrir(sala.id)">Abrir</button>
+							<button href="#" class="btn btn-danger btn-block" ng-if="sala.isOpen && sala.isOn" ng-click="fechar(sala.id)">Fechar</button>
+							<button href="#" class="btn btn-warning btn-block disabled" ng-if="!sala.isOn">Indisponivel</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>        
 </div>
 
 <div class="col-md-3"></div>
