@@ -28,14 +28,17 @@ public class IFOpenDoorsApplication extends Application {
 		
 		this.singletons.add(filter);
 		
-		// ADD YOUR RESTFUL RESOURCES HERE
+		// Controllers das entidades.
 		this.singletons.add(new RoomController());
-		this.singletons.add(new RestServices());
 		this.singletons.add(new PersonController());
 		this.singletons.add(new DoorController());
 		this.singletons.add(new TypeRoomController());
 		this.singletons.add(new GateController());
 		this.singletons.add(new RoleController());
+		
+		// Mapeamento do index e serviços.
+		this.singletons.add(new IFOpenDoorsRestServices());
+		this.singletons.add(new IFOpenDoorsIndex());
 	}
 
 	public Set<Class<?>> getClasses() {
