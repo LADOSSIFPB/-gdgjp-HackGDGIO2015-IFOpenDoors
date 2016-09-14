@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -22,32 +20,6 @@ public class PersonDAO extends AbstractDAO<Integer, Person>{
 	public static PersonDAO getInstance() {
 		instance = new PersonDAO();
 		return instance;
-	}
-
-	@Override
-	public Person getById(Integer idPerson) throws SQLExceptionIFOpenDoors {
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Person person = null;
-		
-		try {
-		
-			session.beginTransaction();
-			person = (Person) session.get(Person.class, idPerson);
-	        Hibernate.initialize(person);
-	        session.getTransaction().commit();
-	        
-		} catch (HibernateException e) {
-			
-			logger.error(e.getMessage());
-			session.getTransaction().rollback();
-			
-		} finally {
-			
-			session.close();
-		}
-		
-		return person;
 	}
 
 	public Person login(String email, String password){
@@ -86,5 +58,11 @@ public class PersonDAO extends AbstractDAO<Integer, Person>{
 	public int delete(Integer pk) throws SQLExceptionIFOpenDoors {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Class<?> getEntityClass() {
+		// TODO Auto-generated method stub
+		return Person.class;
 	}	
 }

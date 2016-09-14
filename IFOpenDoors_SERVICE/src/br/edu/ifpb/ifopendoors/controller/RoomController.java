@@ -3,6 +3,7 @@ package br.edu.ifpb.ifopendoors.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,6 +22,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import br.edu.ifpb.ifopendoors.dao.CloseDAO;
 import br.edu.ifpb.ifopendoors.dao.DoorDAO;
+import br.edu.ifpb.ifopendoors.dao.KeyDAO;
 import br.edu.ifpb.ifopendoors.dao.OpenDAO;
 import br.edu.ifpb.ifopendoors.dao.PersonDAO;
 import br.edu.ifpb.ifopendoors.dao.RoomDAO;
@@ -28,6 +30,7 @@ import br.edu.ifpb.ifopendoors.dao.TypeRoomDAO;
 import br.edu.ifpb.ifopendoors.entity.Close;
 import br.edu.ifpb.ifopendoors.entity.Door;
 import br.edu.ifpb.ifopendoors.entity.Erro;
+import br.edu.ifpb.ifopendoors.entity.Key;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.entity.Person;
 import br.edu.ifpb.ifopendoors.entity.Room;
@@ -82,7 +85,7 @@ public class RoomController {
 			// Verificar disponibilidade de sala.
 			//OpenDAO.getInstance().isOpenRoom(idRoom);
 			
-			if (person != null && room != null && door.getIp() != null && lastOpen==null) {
+			if (person != null && room != null && door.getIp() != null && lastOpen == null) {
 				
 				open.setPerson(person);
 				room.setDoor(door);
@@ -95,7 +98,11 @@ public class RoomController {
 				
 				if (idOpen != BancoUtil.IDVAZIO) {
 					
-					open.getRoom().getDoor().setKey("kasdkas");
+					String uuid = String.valueOf(UUID.randomUUID());
+					Key key = new Key();
+					key.setKey(uuid);
+					key.setOpen(open);
+					KeyDAO.getInstance().insert(key);
 					
 					Client client = ClientBuilder.newClient();
 		    		Response response = client.target("http://" + open.getRoom().getDoor().getIp() + "/open")

@@ -4,13 +4,9 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.edu.ifpb.ifopendoors.entity.Close;
-import br.edu.ifpb.ifopendoors.entity.Door;
 import br.edu.ifpb.ifopendoors.entity.Open;
 import br.edu.ifpb.ifopendoors.entity.Room;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
@@ -25,32 +21,6 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 	public static RoomDAO getInstance() {
 		instance = new RoomDAO();
 		return instance;
-	}
-
-	@Override
-	public Room getById(Integer idRoom) throws SQLExceptionIFOpenDoors {
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Room room = null;
-		
-		try {
-		
-			session.beginTransaction();
-			room = (Room) session.get(Room.class, idRoom);
-	        Hibernate.initialize(room);
-	        session.getTransaction().commit();
-	        
-		} catch (HibernateException e) {
-			
-			logger.error(e.getMessage());
-			session.getTransaction().rollback();
-			
-		} finally {
-			
-			session.close();
-		}
-		
-		return room;
 	}
 	
 	public Open getLastOpen(int idRoom){
@@ -82,5 +52,11 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 	public int delete(Integer pk) throws SQLExceptionIFOpenDoors {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Class<?> getEntityClass() {
+		// TODO Auto-generated method stub
+		return Room.class;
 	}	
 }

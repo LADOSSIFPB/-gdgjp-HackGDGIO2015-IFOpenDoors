@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -14,6 +15,8 @@ import br.edu.ifpb.ifopendoors.hibernate.HibernateUtil;
 public abstract class AbstractDAO<PK, T> implements GenericDAO<PK, T> {
 
 	private static Logger logger = LogManager.getLogger(AbstractDAO.class);
+	
+	public abstract Class<?> getEntityClass();
 	
 	@Override
 	public int insert(T entity) throws SQLExceptionIFOpenDoors {
@@ -94,6 +97,34 @@ public abstract class AbstractDAO<PK, T> implements GenericDAO<PK, T> {
 		}
 
 		return list;
+	}
+	
+	public T getById(Integer pk) throws SQLExceptionIFOpenDoors {		
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		T entity = null;
+		
+		try {
+		
+			session.beginTransaction();
+			entity = (T) session.get(getEntityClass(), pk);
+	        Hibernate.initialize(entity);
+	        session.getTransaction().commit();
+	        
+		} catch (HibernateException hibernateException) {
+			
+			session.getTransaction().rollback();
+			
+			logger.error(hibernateException.getMessage());
+			//TODO: throw new SQLExceptionIFOpenDoors(hibernateException);
+			
+		} finally {
+		
+			session.close();
+		}
+		
+		return entity;
 	}
 
 	@Override

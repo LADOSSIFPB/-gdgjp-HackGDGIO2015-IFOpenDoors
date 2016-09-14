@@ -5,25 +5,20 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.edu.ifpb.ifopendoors.entity.Close;
+import br.edu.ifpb.ifopendoors.entity.Key;
 import br.edu.ifpb.ifopendoors.exception.SQLExceptionIFOpenDoors;
 
-public class CloseDAO extends AbstractDAO<Integer, Close>{
-
-	private static Logger logger = LogManager.getLogger(CloseDAO.class);
-
-	private static CloseDAO instance;
+public class KeyDAO extends AbstractDAO<Integer, Key>{
 	
-	public static CloseDAO getInstance() {
-		instance = new CloseDAO();
+	private static Logger logger = LogManager.getLogger(KeyDAO.class);
+
+	private static KeyDAO instance;
+	
+	public static KeyDAO getInstance() {
+		instance = new KeyDAO();
 		return instance;
 	}
 
-	@Override
-	public List<Close> getAll() throws SQLExceptionIFOpenDoors {
-		return super.getAll("Close.getAll");
-	}
-	
 	@Override
 	public int delete(Integer pk) throws SQLExceptionIFOpenDoors {
 		// TODO Auto-generated method stub
@@ -31,8 +26,13 @@ public class CloseDAO extends AbstractDAO<Integer, Close>{
 	}
 
 	@Override
+	public List<Key> getAll() throws SQLExceptionIFOpenDoors {
+		return super.getAll("Key.getAll");
+	}
+
+	@Override
 	public Class<?> getEntityClass() {
 		// TODO Auto-generated method stub
-		return Close.class;
-	}	
+		return Key.class;
+	}
 }

@@ -25,32 +25,6 @@ public class RoleDAO extends AbstractDAO<Integer, Role>{
 	}
 
 	@Override
-	public Role getById(Integer idRole) throws SQLExceptionIFOpenDoors {
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Role role = null;
-		
-		try {
-		
-			session.beginTransaction();
-			role = (Role) session.get(Role.class, idRole);
-	        Hibernate.initialize(role);
-	        session.getTransaction().commit();
-	        
-		} catch (HibernateException e) {
-			
-			logger.error(e.getMessage());
-			session.getTransaction().rollback();
-			
-		} finally {
-			
-			session.close();
-		}
-		
-		return role;
-	}
-
-	@Override
 	public List<Role> getAll() throws SQLExceptionIFOpenDoors {
 		return super.getAll("Role.getAll");
 	}
@@ -59,5 +33,11 @@ public class RoleDAO extends AbstractDAO<Integer, Role>{
 	public int delete(Integer pk) throws SQLExceptionIFOpenDoors {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Class<?> getEntityClass() {
+		// TODO Auto-generated method stub
+		return Role.class;
 	}	
 }
