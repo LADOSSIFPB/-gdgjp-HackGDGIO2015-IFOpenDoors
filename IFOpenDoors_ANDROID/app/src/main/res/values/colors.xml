@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#548b2e</color>
+    <color name="colorPrimaryDark">#121f2a</color>
+    <color name="colorPrimaryDark2">#1c2f40</color>
+    <color name="colorAccent">#e20505</color>
+    <color name="corButton">#1c2f40</color>
+    <color name="gelo">#f4f4f4</color>
+    <color name="fundo">#1c2f40</color>
+    <color name="snack">#548b2e</color>
+</resources>
