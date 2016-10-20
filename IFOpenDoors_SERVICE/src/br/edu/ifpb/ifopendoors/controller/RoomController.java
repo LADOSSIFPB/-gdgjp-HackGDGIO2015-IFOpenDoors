@@ -45,6 +45,7 @@ import br.edu.ifpb.ifopendoors.validatio.Validate;
  * @author Rhavy Maia
  * @version 1.0
  */
+
 @Path("room")
 public class RoomController {
 
@@ -65,7 +66,7 @@ public class RoomController {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 		
-		// Validação dos dados de entrada.
+		// ValidaÃ§Ã£o dos dados de entrada.
 		int validacao = Validate.open(open);		
 		
 		if (validacao == Validate.VALIDATE_OK) {
@@ -130,7 +131,7 @@ public class RoomController {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 		
-		// Validação dos dados de entrada.
+		// ValidaÃ§Ã£o dos dados de entrada.
 		int validacao = Validate.VALIDATE_OK;
 		
 		if (validacao == Validate.VALIDATE_OK) {
@@ -192,6 +193,35 @@ public class RoomController {
 		roons = RoomDAO.getInstance().getAll();
 		
 		return roons;
+	}
+	
+	@GET
+	@Path("/listar/nome/{nome}")
+	@Produces("application/json")
+	public Response getAllByNome(@PathParam("nome") String nome) {
+		
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+
+		List<Room> roons = new ArrayList<Room>();
+		
+		try {
+
+			roons = RoomDAO.getInstance().getAllByName(nome);
+			
+			builder.status(Response.Status.OK);
+			builder.entity(roons);
+
+		} catch (SQLExceptionIFOpenDoors qme) {
+
+			Erro erro = new Erro();
+			erro.setCodigo(qme.getErrorCode());
+			erro.setMensagem(qme.getMessage());
+
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro);
+		}
+
+		return builder.build();
 	}
 	
 	@POST

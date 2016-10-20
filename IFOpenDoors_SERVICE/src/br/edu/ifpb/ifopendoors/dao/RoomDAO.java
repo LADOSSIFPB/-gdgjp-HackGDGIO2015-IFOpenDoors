@@ -1,9 +1,11 @@
 package br.edu.ifpb.ifopendoors.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -45,8 +47,35 @@ public class RoomDAO extends AbstractDAO<Integer, Room>{
 
 	@Override
 	public List<Room> getAll() throws SQLExceptionIFOpenDoors {
+		
 		return super.getAll("Room.getAll");
+		
 	}
+	
+	
+	public List<Room> getAllByName(String nome) throws SQLExceptionIFOpenDoors{
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		List<Room> roons = null;
+		
+		try {
+			
+			String hql = "from tb_sala as sala where sala.nm_sala = :nome";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("nome", nome);
+			
+			roons = (List<Room>) query.list();
+	        
+		}finally {
+		
+			session.close();
+		}
+		
+		return roons;
+	}
+	
 	
 	@Override
 	public int delete(Integer pk) throws SQLExceptionIFOpenDoors {
